@@ -1,0 +1,15 @@
+form{
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.btn{
+  border-radius: 0em;
+  width: 150px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.btn:hover{
+  background-color: rgba(16, 13, 14, 0.795) !important;
+}

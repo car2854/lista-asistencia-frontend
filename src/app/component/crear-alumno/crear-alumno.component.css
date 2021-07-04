@@ -1,0 +1,13 @@
+img{
+  width: 220px;
+}
+
+.btn{
+  border-radius: 0em;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.btn-primary, .btn-success{
+  width: 150px;
+}

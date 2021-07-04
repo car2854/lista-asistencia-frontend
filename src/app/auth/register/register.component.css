@@ -1,0 +1,17 @@
+h5{
+  color: #8D448B;
+  font-size: 16px;
+}
+
+h5 a{
+  padding-left: 5px;
+  text-decoration: underline;
+}
+
+h5 a:hover{
+  color: blue;
+}
+
+h3{
+  text-transform: uppercase;
+}

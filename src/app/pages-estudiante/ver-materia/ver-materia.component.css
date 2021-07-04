@@ -1,0 +1,22 @@
+form{
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.btn{
+  border-radius: 0em;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.btn-primary, .btn-success{
+  width: 150px;
+}
+
+.btn-primary:hover{
+  background-color: rgba(16, 13, 14, 0.795) !important;
+}
+
+.btn-danger:hover{
+  background-color: #dc3546d0 !important;
+}
