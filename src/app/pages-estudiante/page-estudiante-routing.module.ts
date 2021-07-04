@@ -11,8 +11,8 @@ const routes: Routes = [
     children: [
       {path: 'materias', component: ListaMateriasComponent},
       {path: 'materias/:id', component: VerMateriaComponent},
-      { path: '', redirectTo: '/main-estudiante', pathMatch: 'full'},
-      { path: '**', redirectTo: '/main-estudiante' }
+      { path: '', redirectTo: '/main-estudiante/materias', pathMatch: 'full'},
+      { path: '**', redirectTo: '/main-estudiante/materias' }
     ]
   }
 ];

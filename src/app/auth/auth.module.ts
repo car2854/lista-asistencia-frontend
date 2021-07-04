@@ -7,12 +7,14 @@ import { RegisterComponent } from './register/register.component';
 import { AuthComponent } from './auth.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginEstudianteComponent } from './login-estudiante/login-estudiante.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
-    AuthComponent
+    AuthComponent,
+    LoginEstudianteComponent
   ],
   exports:[
     LoginComponent,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProfesorService } from '../services/profesor.service';
 
 @Component({
   selector: 'app-pages',
@@ -7,13 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PagesComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private profesorService: ProfesorService
+  ) { }
 
   ngOnInit(): void {
   }
 
 
   public signOff(){
-    
+    this.profesorService.logout();
   }
 }

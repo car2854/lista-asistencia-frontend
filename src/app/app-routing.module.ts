@@ -10,8 +10,8 @@ const routes: Routes = [
   // path 'main' PagesRouting
   // path 'main-estudiante' MainEstudianteRouting
 
-  { path: '', redirectTo: '/main', pathMatch: 'full' },
-  { path: '**', redirectTo: '/main' }
+  { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/auth/login' }
 ];
 
 @NgModule({

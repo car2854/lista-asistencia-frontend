@@ -15,8 +15,8 @@ const routes: Routes = [
       { path: 'examen/:id', component: VerExamenComponent },
       { path: 'materias', component: ListaMateriasComponent },
       { path: 'materias/:id', component: VerMateriaComponent },
-      { path: '', redirectTo: '/main', pathMatch: 'full'},
-      { path: '**', redirectTo: '/main' }
+      { path: '', redirectTo: '/main/materias', pathMatch: 'full'},
+      { path: '**', redirectTo: '/main/materias' }
     ]
   }
 ];

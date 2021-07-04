@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EstudianteService } from '../services/estudiante.service';
 
 @Component({
   selector: 'app-page-estudiante',
@@ -7,13 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageEstudianteComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private estudianteService: EstudianteService
+  ) { }
 
   ngOnInit(): void {
   }
 
   public signOff(){
-    
+    this.estudianteService.logout();
   }
 
 }
