@@ -8,6 +8,7 @@ import { VerExamenComponent } from './ver-examen/ver-examen.component';
 import { VerMateriaComponent } from './ver-materia/ver-materia.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { PagesComponent } from './pages.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PagesComponent } from './pages.component';
   imports: [
     CommonModule,
     PagesRoutingModule,
-    ComponentModule
+    ComponentModule,
+    ReactiveFormsModule
   ],
   exports: [
   ]

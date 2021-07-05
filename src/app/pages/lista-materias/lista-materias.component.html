@@ -1,36 +1,9 @@
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-3" *ngFor="let materia of materias">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Materia 1</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Ver mas</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Materia 2</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Ver mas</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Materia 3</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Ver mas</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Materia 4</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <h5 class="card-title">{{materia.nombre}}</h5>
+        <p class="card-text">{{materia.descripcion}}</p>
         <a href="#" class="btn btn-primary">Ver mas</a>
       </div>
     </div>
@@ -41,23 +14,41 @@
 <hr>
 <h3 class="text-center pb-3">Crear nueva Materia</h3>
 
-<form action="">
+<form
+  class="login-form"
+  autocomplete="off"
+  [formGroup]="materiaForm"
+  (submit)="guardar()"
+>
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
         <label for="" class="form-control">Descripcion de la materia</label>
-        <textarea class="form-control" name="" id="" cols="30" rows="5"></textarea>
+        <textarea 
+          class="form-control" 
+          cols="30" 
+          rows="5"
+          formControlName="descripcion"
+        ></textarea>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <label for="" class="form-control">Seleccione el nombre de la Materia</label>
-        <select class="form-control" id="exampleFormControlSelect1">
+        
+        <select 
+          class="form-control" 
+          id="exampleFormControlSelect1"
+          formControlName="nombre"
+        >
+        
+          <option>--Seleccione una materia--</option>
           <option>Matematicas</option>
           <option>Literatura</option>
           <option>Ingles</option>
           <option>Ciencias</option>
           <option>Deportes</option>
+        
         </select>
       </div>
     </div>
@@ -67,20 +58,21 @@
 
   <h4 class="text-center">Agregar estudiantes</h4>
 
-  <div class="row">
-    <div class="col-md-10">
-      <select class="form-control" id="exampleFormControlSelect1">
-        <option>Estudiante 1</option>
-        <option>Estudiante 2</option>
-        <option>Estudiante 3</option>
-        <option>Estudiante 4</option>
-        <option>Estudiante 5</option>
-      </select>
+  
+
+    <div class="row">
+      <div class="col-md-10">
+        <select class="form-control" id="exampleFormControlSelect1" (change)="onChange($event.target)">
+          <option value="">--Seleccione un estudiante--</option>
+          <option *ngFor="let estudiante of estudiantes" [value]="estudiante._id">{{estudiante.nombre}} - {{estudiante.email}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <button class="btn btn-primary" (click)="agregar()" type="button">Agregar</button>
+      </div>
     </div>
-    <div class="col">
-      <button class="btn btn-success">Agregar</button>
-    </div>
-  </div>
+
+
 
   <table class="table">
     <thead>
@@ -92,12 +84,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr *ngFor="let estudiante of tablaEstudiantes">
         <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
+        <td>{{estudiante.nombre}}</td>
+        <td>{{estudiante.email}}</td>
         <td>
-          <button class="btn btn-danger">X</button>
+          <button class="btn btn-danger" (click)="eliminar(estudiante)">X</button>
         </td>
       </tr>
     </tbody>

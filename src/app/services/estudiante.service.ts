@@ -7,6 +7,8 @@ import { environment } from 'src/environments/environment.prod';
 import { LoginForm } from '../interfaces/loginEstudiante-form';
 import { Estudiante } from '../models/estudiante.model';
 import { Observable, of } from 'rxjs';
+import { EstudianteForm } from '../interfaces/crearEstudiante-form';
+import { InscribirEstudianteForm } from '../interfaces/inscribirEstudiante-form';
 
 const base_url = environment.base_url;
 
@@ -26,6 +28,14 @@ export class EstudianteService {
     return localStorage.getItem('token') || '';
   }
 
+  get headers(){
+    return {
+      headers: {
+        'x-token': this.token
+      }
+    }
+  }
+
   public saveStorage(token: string){
     return localStorage.setItem('token', token);
   }
@@ -38,6 +48,12 @@ export class EstudianteService {
           this.estudiante = resp.estudianteDB;
         })
       )
+  }
+
+  public crearEstudiante(formData: EstudianteForm){
+
+    return this.http.post(`${base_url}/estudiante`, formData, this.headers);
+
   }
 
   public logout(){
@@ -60,5 +76,15 @@ export class EstudianteService {
       }),
       catchError(err => of(false))
     )
+  }
+
+  public getEstudiantes(){
+
+    return this.http.get(`${base_url}/estudiante`, this.headers);
+
+  }
+
+  public inscribirEstudiante(formData:InscribirEstudianteForm){
+    return this.http.post(`${base_url}/estudiante/inscripcion`, formData, this.headers);
   }
 }

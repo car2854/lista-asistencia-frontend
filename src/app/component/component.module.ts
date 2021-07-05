@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CrearAlumnoComponent } from './crear-alumno/crear-alumno.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -9,7 +10,8 @@ import { CrearAlumnoComponent } from './crear-alumno/crear-alumno.component';
     CrearAlumnoComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   exports: [
     CrearAlumnoComponent
