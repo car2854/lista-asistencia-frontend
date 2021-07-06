@@ -20,3 +20,7 @@ form{
 .btn-danger:hover{
   background-color: #dc3546d0 !important;
 }
+
+h5 p{
+  font-size: 13px;
+}

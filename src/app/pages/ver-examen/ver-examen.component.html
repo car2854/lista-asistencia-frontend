@@ -1,16 +1,21 @@
+<ng-container *ngIf="loading; else content">
+  <app-loading></app-loading>  
+</ng-container>
+<ng-template #content>
+  
 <h3 class="text-center">Examen</h3>
 <hr>
 <div class="row">
   <div class="col-md-6">
     <div class="form-group">
-      <label class="form-control" for="">Materia</label>
-      <input class="form-control" type="text" value="Matematicas">
+      <label>Materia</label>
+      <input class="form-control" type="text" value="{{examen.materia.nombre}} - {{examen.materia.descripcion}}">
     </div>
   </div>
   <div class="col">
     <div class="form-group">
-      <label class="form-control" for="">Descripcion</label>
-      <input class="form-control" type="text" value="Enlace x">
+      <label>Enlace</label>
+      <input class="form-control" type="text" [value]="examen.descripcion">
     </div>
   </div>
 </div>
@@ -47,4 +52,5 @@
       <td>the Bird</td>
     </tr>
   </tbody>
-</table>
+</table>  
+</ng-template>

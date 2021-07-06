@@ -73,4 +73,8 @@ export class ProfesorService {
       catchError(err => of(false))
     )
   }
+
+  public getProfesores(){
+    return this.http.get(`${base_url}/profesor`);
+  }
 }

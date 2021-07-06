@@ -20,6 +20,10 @@ export class ListaMateriasComponent implements OnInit {
 
   public idEstudianteSelect: string = '';
 
+  public loading: Boolean = true;
+  public loadingMaterias: Boolean = true;
+  public loadingEstudiantes: Boolean = true;
+
   public materiaForm = this.fb.group({
     descripcion   : ['', [Validators.required]],
     nombre        : ['--Seleccione una materia--', [Validators.required]]
@@ -37,6 +41,9 @@ export class ListaMateriasComponent implements OnInit {
     this.materiasService.getMateriasProfesor()
       .subscribe((resp:any) => {
         this.materias = resp.materias;
+        
+        this.loadingMaterias = false;
+        this.loading = this.loadingMaterias || this.loadingEstudiantes;
       }, (err) => {
         console.log(err);
       });
@@ -44,6 +51,9 @@ export class ListaMateriasComponent implements OnInit {
     this.estudianteService.getEstudiantes()
       .subscribe((resp:any) => {
         this.estudiantes = resp.estudiantes;
+
+        this.loadingEstudiantes = false;
+        this.loading = this.loadingMaterias || this.loadingEstudiantes;
       }, (err) => {
         console.log(err);
       });
@@ -104,6 +114,7 @@ export class ListaMateriasComponent implements OnInit {
       .subscribe((resp:any) => {
         
         const _id = resp.materia._id;
+        this.materias.push(resp.materia);
         
         this.tablaEstudiantes.forEach((estudiante, index) => {
 
@@ -113,10 +124,9 @@ export class ListaMateriasComponent implements OnInit {
           }
           this.estudianteService.inscribirEstudiante(data)
             .subscribe((resp:any) => {
-              console.log(resp);
+              // console.log(resp);
             }, (err) => {
               console.log(err);
-              
             });
 
         });
@@ -127,6 +137,11 @@ export class ListaMateriasComponent implements OnInit {
       }, (err) => {
         Swal.fire("Error", err.error.msg, 'error');
       });
+  }
+
+  public verMateria(materia: Materia){
+    this.router.navigateByUrl('main/materias');
+    // this.router.navigateByUrl(`main/materia/${materia._id}`);
   }
 
 }

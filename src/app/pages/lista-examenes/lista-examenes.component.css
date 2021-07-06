@@ -13,3 +13,7 @@ form{
 .btn:hover{
   background-color: rgba(16, 13, 14, 0.795) !important;
 }
+
+h5 p{
+  font-size: 13px;
+}

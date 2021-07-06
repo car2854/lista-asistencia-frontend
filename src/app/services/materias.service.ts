@@ -35,4 +35,24 @@ export class MateriasService {
   public crearMateria(formData:MateriaForm){
     return this.http.post(`${base_url}/materia`, formData, this.headers);
   }
+
+  public getMateria(id: String){
+  
+    return this.http.get(`${base_url}/materia/${id}`, this.headers);
+
+  }
+
+  public getEstudiantesMateria(id: String){
+
+    return this.http.get(`${base_url}/materia/estudiantes/${id}`, this.headers);
+
+  }
+
+  public getMateriasEstudiante(){
+    return this.http.get(`${base_url}/materia/estudiante`, this.headers);
+  }
+
+  public getExamenesMateria(id:string){
+    return this.http.get(`${base_url}/materia/examenes/${id}`, this.headers);
+  }
 }

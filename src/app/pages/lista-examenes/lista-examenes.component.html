@@ -1,37 +1,20 @@
+<ng-container *ngIf="loading; else content">
+  <app-loading></app-loading>
+</ng-container>
+<ng-template #content>
+
+  
+
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-3 mb-3" *ngFor="let examen of examenes">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Examen 1</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Ver mas</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Examen 2</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Ver mas</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Examen 3</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Ver mas</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Examen 4</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Ver mas</a>
+        <h5 class="card-title">{{examen.materia.nombre}} <p>{{examen.materia.descripcion}}</p></h5>
+        <p class="card-text">{{examen.descripcion}}.</p>
+        <a 
+          class="btn btn-primary"
+          [routerLink]="['/main/examen',examen._id]"
+        >Ver mas</a>
       </div>
     </div>
   </div>
@@ -41,24 +24,35 @@
 <hr>
 <h3 class="text-center">Crear nuevo Examen</h3>
 
-<form action="">
+<form
+  class="login-form"
+  autocomplete="off"
+  [formGroup]="examenForm"
+  (submit)="guardar()"
+>
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
-        <label for="" class="form-control">Enlace del examen</label>
-        <input type="text" class="form-control">
+        <label>Titulo del examen</label>
+        <input type="text" class="form-control" formControlName="titulo">
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label for="" class="form-control">Seleccione la materia</label>
-        <select class="form-control" id="exampleFormControlSelect1">
-          <option>Matematicas</option>
-          <option>Literatura</option>
-          <option>Ingles</option>
-          <option>Ciencias</option>
-          <option>Deportes</option>
+        <label>Materias</label>
+        <select 
+          class="form-control"
+          formControlName="materia"
+        >
+          <option value="">--Seleccione la materia--</option>
+          <option *ngFor="let materia of materias" [value]="materia._id">{{materia.nombre}} - {{materia.descripcion}}</option>
         </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Enlace del examen</label>
+        <input type="text" class="form-control" formControlName="descripcion">
       </div>
     </div>
   </div>
@@ -66,3 +60,5 @@
     <button class="btn btn-primary" type="submit">Crear Examen</button>
   </div>
 </form>
+
+</ng-template>

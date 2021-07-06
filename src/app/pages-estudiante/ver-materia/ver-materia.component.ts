@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
+import { MateriasService } from '../../services/materias.service';
+import { Examen } from '../../models/examen.model';
 
 @Component({
   selector: 'app-ver-materia',
@@ -7,9 +11,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VerMateriaComponent implements OnInit {
 
-  constructor() { }
+  public examenes!: Examen[];
+
+  constructor(
+    private activatedRouter: ActivatedRoute,
+    private materiasService: MateriasService
+  ) { }
 
   ngOnInit(): void {
+
+    this.activatedRouter.params.subscribe(({id}) => this.cargarExamenes(id));
+
+  }
+
+  public cargarExamenes(id:string){
+    this.materiasService.getExamenesMateria(id)
+      .subscribe((resp:any) => {
+        
+        this.examenes = resp.listaExamenes;
+        console.log(resp);
+        
+        
+      }, (err) => {
+        Swal.fire("Error", err.errrs, 'error');
+      })
   }
 
 }

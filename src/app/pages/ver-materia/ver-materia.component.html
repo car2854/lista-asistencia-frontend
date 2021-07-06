@@ -1,21 +1,26 @@
-<h3 class="text-center">Materia</h3>
+
+<ng-container *ngIf="loading; else content">
+  <app-loading></app-loading>
+</ng-container>
+
+<ng-template #content>
+  
+<h3 class="text-center">{{materia.nombre}}</h3>
 <hr>
 <div class="row">
   <div class="col-md-6">
     <div class="form-group">
-      <label class="form-control" for="">Materia</label>
-      <input class="form-control" type="text" value="Matematicas">
+      <label for="">Materia</label>
+      <input class="form-control" type="text" [value]="materia.nombre">
     </div>
   </div>
   <div class="col">
     <div class="form-group">
-      <label class="form-control" for="">Descripcion</label>
-      <input class="form-control" type="text" value="Lunes por la mañana">
+      <label for="">Descripcion</label>
+      <input class="form-control" type="text" [value]="materia.descripcion">
     </div>
   </div>
 </div>
-
-<hr>
 
 <hr>
 
@@ -46,13 +51,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr *ngFor="let estudiante of estudiantes">
         <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
+        <td>{{estudiante.nombre}}</td>
+        <td>{{estudiante.email}}</td>
         <td>
           <button class="btn btn-danger">X</button>
         </td>
       </tr>
     </tbody>
-  </table>
+  </table>  
+</ng-template>
+

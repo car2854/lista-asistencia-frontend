@@ -5,6 +5,7 @@ import { PageEstudianteRoutingModule } from './page-estudiante-routing.module';
 import { PageEstudianteComponent } from './page-estudiante.component';
 import { ListaMateriasComponent } from './lista-materias/lista-materias.component';
 import { VerMateriaComponent } from './ver-materia/ver-materia.component';
+import { ComponentModule } from '../component/component.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { VerMateriaComponent } from './ver-materia/ver-materia.component';
   imports: [
     CommonModule,
     PageEstudianteRoutingModule,
+    ComponentModule
   ]
 })
 export class PageEstudianteModule { }
