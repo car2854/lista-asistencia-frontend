@@ -87,4 +87,44 @@ export class EstudianteService {
   public inscribirEstudiante(formData:InscribirEstudianteForm){
     return this.http.post(`${base_url}/estudiante/inscripcion`, formData, this.headers);
   }
+
+  async guardarFotos(
+    imagen1: File,
+    imagen2: File,
+    imagen3: File,
+    id: string
+  ){
+
+    try {
+      const url = `${base_url}/upload`;
+      const formData = new FormData();
+      formData.append('imagen1', imagen1);
+      formData.append('imagen2', imagen2);
+      formData.append('imagen3', imagen3);
+      formData.append('id', id);
+
+
+      const resp = await fetch( url, {
+        method: 'POST',
+        headers: {
+          'x-token': localStorage.getItem('token') || ''
+        },
+        body: formData
+      });
+
+      const data = await resp.json();
+
+      if (data.ok){
+        return data.nombreArchivo;
+      }else{
+        console.log(data.msg);
+        return false;
+      }
+
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+
+  }
 }

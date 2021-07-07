@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { PagesModule } from './pages/pages.module';
 import { PageEstudianteModule } from './pages-estudiante/page-estudiante.module';
+import { ImagenPipe } from './pipe/imagen.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ImagenPipe,
   ],
   imports: [
     BrowserModule,

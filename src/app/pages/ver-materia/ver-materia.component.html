@@ -52,7 +52,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let estudiante of estudiantes">
-        <th scope="row">1</th>
+        <th scope="row">
+          <img src="{{estudiante.foto1}}" alt="{{estudiante.nombre}}">
+        </th>
         <td>{{estudiante.nombre}}</td>
         <td>{{estudiante.email}}</td>
         <td>

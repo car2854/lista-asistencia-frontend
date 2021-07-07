@@ -11,3 +11,11 @@ img{
 .btn-primary, .btn-success{
   width: 150px;
 }
+
+input[type="file"]{
+  display: none;
+}
+
+.pointer{
+  cursor: pointer;
+}

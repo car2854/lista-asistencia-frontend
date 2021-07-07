@@ -91,7 +91,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Imagen</th>
+          <th scope="col" class="tablaImagen">Imagen</th>
           <th scope="col">Nombre</th>
           <th scope="col">Email</th>
           <th scope="col" class="acciones">Acciones</th>
@@ -99,7 +99,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let estudiante of tablaEstudiantes">
-          <th scope="row">1</th>
+          <th scope="row">
+            <img src="{{estudiante.foto1}}" alt="{{estudiante.nombre}}">
+          </th>
           <td>{{estudiante.nombre}}</td>
           <td>{{estudiante.email}}</td>
           <td>
