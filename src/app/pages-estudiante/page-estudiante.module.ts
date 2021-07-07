@@ -6,13 +6,15 @@ import { PageEstudianteComponent } from './page-estudiante.component';
 import { ListaMateriasComponent } from './lista-materias/lista-materias.component';
 import { VerMateriaComponent } from './ver-materia/ver-materia.component';
 import { ComponentModule } from '../component/component.module';
+import { VerExamenComponent } from './ver-examen/ver-examen.component';
 
 
 @NgModule({
   declarations: [
     PageEstudianteComponent,
     ListaMateriasComponent,
-    VerMateriaComponent
+    VerMateriaComponent,
+    VerExamenComponent
   ],
   imports: [
     CommonModule,

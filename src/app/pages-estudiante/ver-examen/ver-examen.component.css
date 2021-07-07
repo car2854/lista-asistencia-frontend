@@ -1,0 +1,37 @@
+.title{
+  text-align: center;
+}
+
+.title h1{
+  margin: 0px;
+  padding: 0px;
+}
+
+.title p{
+  margin: 0px;
+  padding: 0px;
+  font-size: 20px;
+}
+
+.container{
+  background-color: white;
+  padding-top: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border: 1px solid #cccccc91;
+  border-radius: 5px;
+  text-align: center;
+}
+
+code{
+  font-weight: bold;
+  font-family: "Lato", Arial, sans-serif;
+  color: black;
+  font-size: 16px;
+}
+
+#camara{
+  border: 1px solid;
+  width: 350px;
+  height: 350px;
+}

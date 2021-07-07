@@ -31,6 +31,14 @@ export class ProfesorService {
     return localStorage.setItem('token', token);
   }
 
+  get headers(){
+    return {
+      headers: {
+        'x-token': this.token
+      }
+    }
+  }
+
 
   public login(formData: LoginForm){
     return this.http.post(`${base_url}/auth/login/profesor`, formData)
@@ -76,5 +84,9 @@ export class ProfesorService {
 
   public getProfesores(){
     return this.http.get(`${base_url}/profesor`);
+  }
+
+  public getProfesor(id:string){
+    return this.http.get(`${base_url}/profesor/${id}`,this.headers);
   }
 }

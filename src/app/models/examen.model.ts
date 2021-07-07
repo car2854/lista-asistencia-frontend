@@ -5,7 +5,8 @@ export class Examen{
     public _id         : string,
     public descripcion : string,
     public materia     : Materia,
-    public titulo      : string
+    public titulo      : string,
+    public profesor    : string,
   ){ }
 
 }

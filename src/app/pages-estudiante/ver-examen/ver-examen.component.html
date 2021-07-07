@@ -1,0 +1,24 @@
+<ng-container *ngIf="loading; else content">
+  <app-loading></app-loading>
+</ng-container>
+<ng-template #content>
+
+  <div class="title">
+    <h1>{{examen.materia.nombre}}</h1>
+    <p>Profesor: {{examen.profesor}}</p>
+  </div>
+
+  <div class="container">
+        <p><code>Descripcion de la materia:</code> {{examen.materia.descripcion}}</p>
+        <p><code>Titulo del examen:</code> {{examen.titulo}}</p>
+    
+
+    <canvas id="camara">
+      
+    </canvas>
+
+    <p>Por favor, mire a la camara para el reconocimiento</p>
+  </div>
+
+</ng-template>
+
