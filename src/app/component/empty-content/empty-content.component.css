@@ -1,0 +1,13 @@
+.col{
+  padding: 15px;
+  border: 1px solid #cccccc;
+  border-radius: 7px;
+}
+
+.col p{
+  font-size: 20px;
+}
+
+.col i{
+  font-size: 50px;
+}

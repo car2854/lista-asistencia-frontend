@@ -4,6 +4,10 @@
 </div>
 <ng-template #content>
   
+  <ng-container *ngIf="materias.length == 0">
+    <app-empty-content mensaje="No tienes materias creadas"></app-empty-content>
+  </ng-container>
+
   <div class="row">
 
 

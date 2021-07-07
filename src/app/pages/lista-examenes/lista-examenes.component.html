@@ -3,7 +3,9 @@
 </ng-container>
 <ng-template #content>
 
-  
+<ng-container *ngIf="examenes.length == 0">
+  <app-empty-content mensaje="No tienes examenes creados"></app-empty-content>
+</ng-container>
 
 <div class="row">
   <div class="col-md-3 mb-3" *ngFor="let examen of examenes">

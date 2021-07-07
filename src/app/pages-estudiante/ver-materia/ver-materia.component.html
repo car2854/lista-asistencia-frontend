@@ -1,11 +1,24 @@
-<div class="row">
-  <div class="col-md-3" *ngFor="let examen of examenes">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Examen: {{examen.materia.nombre}}</h5>
-        <p class="card-text">{{examen.titulo}}</p>
-        <a href="#" class="btn btn-primary">Entrar</a>
+<ng-container *ngIf="loading; else content">
+  <app-loading></app-loading>
+</ng-container>
+<ng-template #content>
+
+  <ng-container *ngIf="examenes.length == 0">
+    <app-empty-content mensaje="No tienes examenes"></app-empty-content>
+  </ng-container>
+
+
+  <div class="row">
+    <div class="col-md-3" *ngFor="let examen of examenes">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Examen: {{examen.materia.nombre}}</h5>
+          <p class="card-text">{{examen.titulo}}</p>
+          <a href="#" class="btn btn-primary">Entrar</a>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+</ng-template>
+

@@ -9,7 +9,7 @@ import { PageEstudianteModule } from './pages-estudiante/page-estudiante.module'
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

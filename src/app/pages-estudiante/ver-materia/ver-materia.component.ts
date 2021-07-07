@@ -12,6 +12,7 @@ import { Examen } from '../../models/examen.model';
 export class VerMateriaComponent implements OnInit {
 
   public examenes!: Examen[];
+  public loading: Boolean= true;
 
   constructor(
     private activatedRouter: ActivatedRoute,
@@ -29,8 +30,7 @@ export class VerMateriaComponent implements OnInit {
       .subscribe((resp:any) => {
         
         this.examenes = resp.listaExamenes;
-        console.log(resp);
-        
+        this.loading = false;        
         
       }, (err) => {
         Swal.fire("Error", err.errrs, 'error');
