@@ -21,7 +21,6 @@ export class VideoPlayService {
   ) {
     this.estudiante = this.estudianteService.estudiante;
     this.globalFace = this.faceApiService.globalFace;
-    this.cargarImagenes();
   }
 
   public getLandMark = async(videoElement:any) => {
@@ -30,24 +29,38 @@ export class VideoPlayService {
     const {videoWidth, videoHeight} = videoElement.nativeElement;
     const displaySize = {width:videoWidth, height:videoHeight}
     
-    const detectionsFaces = await this.globalFace.detectAllFaces(videoElement.nativeElement)
+    const detectionsFaces = await this.globalFace.detectAllFaces(videoElement.nativeElement, new this.globalFace.TinyFaceDetectorOptions())
       .withFaceLandmarks()
       .withFaceDescriptors();
 
     const resizedDetections = this.globalFace.resizeResults(detectionsFaces, displaySize)
+    // console.log(resizedDetections);
+
+    // this.cbAi.emit({
+    //   resizedDetections,
+    //   displaySize,
+    // })
     
+    // if (resizedDetections.descriptor){
+      
+      this.labeledFaceDescriptors = await this.loadLabeledImages();
+    
+      const faceMatcher = new this.globalFace.FaceMatcher(this.labeledFaceDescriptors, 0.6);
+  
+      const results = resizedDetections.map((d:any) => faceMatcher.findBestMatch(d.descriptor))
+  
+      // this.cargarImagenes();
+  
+      this.cbAi.emit({
+        resizedDetections,
+        displaySize,
+        results
+      })
 
-    const faceMatcher = new this.globalFace.FaceMatcher(this.labeledFaceDescriptors, 0.6);
+    // }
 
-    const results = resizedDetections.map((d:any) => faceMatcher.findBestMatch(d.descriptor))
 
-    this.cargarImagenes();
 
-    this.cbAi.emit({
-      resizedDetections,
-      displaySize,
-      results
-    })
     
   }
 
@@ -55,17 +68,26 @@ export class VideoPlayService {
 
     const labels = [this.estudiante.foto1,this.estudiante.foto2,this.estudiante.foto3];
 
+    let i = 0;
     return Promise.all(
 
-      
       labels.map(async resp => {
         const descriptions = []
         const img = await this.globalFace.fetchImage(resp);
-        const detections = await this.globalFace.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
-        console.log(`${detections} -> ${resp}`);
         
-        // const detections = await this.globalFace.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
+        console.log(img);
+        
+        console.log(i);
+        (i==2)? i=0:i++;
+        
+        this.cargarImagenes();
+        
+        const detections = await this.globalFace.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+        
+        
         descriptions.push(detections.descriptor)
+        
+        
         return new this.globalFace.LabeledFaceDescriptors(resp, descriptions)
       })
 

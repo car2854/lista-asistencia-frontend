@@ -50,7 +50,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
     const observer2$ = this.videoPlayService.cbAi
       .subscribe( ({results1, results2, results3, resizedDetections, displaySize, results}) => {
-        console.log(results);
+        // console.log(results);
         resizedDetections = resizedDetections[0] || null;
         
 
@@ -72,7 +72,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   public checkFace = () => {
     setInterval( async () => {
       await this.videoPlayService.getLandMark(this.videoElement);
-    }, 5000);
+    }, 9000);
   }
 
 
