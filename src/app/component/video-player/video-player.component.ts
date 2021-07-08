@@ -24,12 +24,14 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
   public estudiante!: Estudiante;
 
+  private imagenesCargadas: boolean = false;
+
   constructor(
     private renderer2: Renderer2,
     private elementRef: ElementRef,
     private faceApiService: FaceApiService,
     private videoPlayService: VideoPlayService,
-    private estudianteService: EstudianteService
+    private estudianteService: EstudianteService,
   ) { }
   
   ngOnInit(): void {
@@ -44,13 +46,18 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   public listenerEvent = () => {
     const observer1$ = this.faceApiService.cbModels.subscribe(res => {
       // TODO: Los modelos estan listo
+      if (!this.imagenesCargadas){
+        this.videoPlayService.cargarImagenes();
+        this.imagenesCargadas = true;
+      }
+
       this.modelsReady = true;
       this.checkFace();
     })
 
     const observer2$ = this.videoPlayService.cbAi
       .subscribe( ({results1, results2, results3, resizedDetections, displaySize, results}) => {
-        // console.log(results);
+        console.log(results);
         resizedDetections = resizedDetections[0] || null;
         
 
@@ -77,6 +84,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
 
   public loadedMetaData(): void {
+    console.log('hola');
     this.videoElement.nativeElement.play();
   }
 

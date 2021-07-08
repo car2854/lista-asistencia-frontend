@@ -14,6 +14,9 @@ export class VideoPlayService {
 
   private globalFace:any;
   private labeledFaceDescriptors: any;
+  private faceMatcher: any;
+
+
 
   constructor(
     private faceApiService: FaceApiService,
@@ -43,13 +46,12 @@ export class VideoPlayService {
     
     // if (resizedDetections.descriptor){
       
-      this.labeledFaceDescriptors = await this.loadLabeledImages();
+      // this.labeledFaceDescriptors = await this.loadLabeledImages();
     
-      const faceMatcher = new this.globalFace.FaceMatcher(this.labeledFaceDescriptors, 0.6);
   
-      const results = resizedDetections.map((d:any) => faceMatcher.findBestMatch(d.descriptor))
+      const results = resizedDetections.map((d:any) => this.faceMatcher.findBestMatch(d.descriptor))
   
-      // this.cargarImagenes();
+      this.cargarImagenes();
   
       this.cbAi.emit({
         resizedDetections,
@@ -66,29 +68,29 @@ export class VideoPlayService {
 
   public loadLabeledImages(){
 
-    const labels = [this.estudiante.foto1,this.estudiante.foto2,this.estudiante.foto3];
+
+    const labels = [this.estudiante.foto1, this.estudiante.foto2, this.estudiante.foto3];
 
     let i = 0;
     return Promise.all(
 
       labels.map(async resp => {
-        const descriptions = []
-        const img = await this.globalFace.fetchImage(resp);
+
+        try {
+          const descriptions = []
+          const img = await this.globalFace.fetchImage(resp);
         
-        console.log(img);
+          const detections = await this.globalFace.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+          
+          if (detections){
+            descriptions.push(detections.descriptor)
+          }
         
-        console.log(i);
-        (i==2)? i=0:i++;
+          return new this.globalFace.LabeledFaceDescriptors(resp, descriptions)
+        } catch (error) {
+          console.log(error);
+        }
         
-        this.cargarImagenes();
-        
-        const detections = await this.globalFace.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
-        
-        
-        descriptions.push(detections.descriptor)
-        
-        
-        return new this.globalFace.LabeledFaceDescriptors(resp, descriptions)
       })
 
     )
@@ -98,6 +100,8 @@ export class VideoPlayService {
 
   public async cargarImagenes(){
     this.labeledFaceDescriptors = await this.loadLabeledImages();
+
+    this.faceMatcher = new this.globalFace.FaceMatcher(this.labeledFaceDescriptors, 0.6);
   }
 
 }
