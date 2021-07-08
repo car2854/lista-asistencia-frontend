@@ -1,0 +1,17 @@
+<div *ngIf="modelsReady">
+  <video 
+    #videoElement 
+    (loadedmetadata)="loadedMetaData()"
+    (play)="listenerPlay()"
+    *ngIf="stream"
+    [srcObject]="stream">
+  ></video>
+</div>
+
+
+{{estudiante.foto1}}
+{{estudiante.foto2}}
+{{estudiante.foto3}}
+<img [src]="estudiante.foto1" alt="">
+<img [src]="estudiante.foto2" alt="">
+<img [src]="estudiante.foto3" alt="">

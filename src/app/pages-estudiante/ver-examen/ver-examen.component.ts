@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewChildren } from '@angular/core';
 import { Examen } from 'src/app/models/examen.model';
 import { ExamenService } from '../../services/examen.service';
 import { ActivatedRoute } from '@angular/router';
@@ -11,9 +11,14 @@ import { ProfesorService } from '../../services/profesor.service';
   styleUrls: ['./ver-examen.component.css']
 })
 export class VerExamenComponent implements OnInit {
+  @ViewChild('cam') cam!: ElementRef;
+
 
   public examen!: Examen;
   public loading: Boolean = true;
+  public dimensionesCamara: any;
+
+  public currentStream: any;
 
   constructor(
     private examenService: ExamenService,
@@ -24,7 +29,6 @@ export class VerExamenComponent implements OnInit {
   ngOnInit(): void {
 
     this.activatedRouter.params.subscribe(({id}) => this.cargarExamen(id));
-
 
   }
 
@@ -37,8 +41,8 @@ export class VerExamenComponent implements OnInit {
           .subscribe((resp:any) => {
             this.examen.profesor = resp.profesor.nombre;
             this.loading = false;
-            console.log(this.examen);
-            
+            this.checkMediaSource();
+            this.getSizeCam();
           },(err) => {
             Swal.fire("Error", err.errrs, 'error');
           })
@@ -49,4 +53,32 @@ export class VerExamenComponent implements OnInit {
       })
   }
 
+
+  checkMediaSource = () => {
+    if (navigator && navigator.mediaDevices) {
+
+      navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: true
+      }).then(stream => {
+        this.currentStream = stream;
+      }).catch(() => {
+        console.log('**** ERROR NOT PERMISSIONS *****');
+      });
+
+    } else {
+      console.log('******* ERROR NOT FOUND MEDIA DEVICES');
+    }
+  };
+
+  public getSizeCam = () => {
+    const elementCam: HTMLElement = this.cam.nativeElement;
+    // console.log(elementCam);
+    
+    if (elementCam){
+      const {width, height} = elementCam.getBoundingClientRect();
+      // this.dimensionesCamara.width = width;
+      // this.dimensionesCamara.height = height;
+    }
+  };
 }

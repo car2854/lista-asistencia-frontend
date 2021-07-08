@@ -8,17 +8,21 @@
     <p>Profesor: {{examen.profesor}}</p>
   </div>
 
-  <div class="container">
-        <p><code>Descripcion de la materia:</code> {{examen.materia.descripcion}}</p>
-        <p><code>Titulo del examen:</code> {{examen.titulo}}</p>
+  <div class="text-center mt-5">
+    <p><code>Descripcion de la materia:</code> {{examen.materia.descripcion}}</p>
+    <p><code>Titulo del examen:</code> {{examen.titulo}}</p>
+  </div>
     
 
-    <canvas id="camara">
-      
-    </canvas>
 
-    <p>Por favor, mire a la camara para el reconocimiento</p>
-  </div>
 
 </ng-template>
 
+<div class="container">
+  <p>Por favor, mire a la camara para el reconocimiento</p>
+  <div class="cam" #cam>
+    <app-video-player 
+      [stream]="currentStream"
+    ></app-video-player>     
+  </div>
+</div>

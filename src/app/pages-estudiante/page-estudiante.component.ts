@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Estudiante } from '../models/estudiante.model';
 import { EstudianteService } from '../services/estudiante.service';
 
 @Component({
@@ -8,11 +9,14 @@ import { EstudianteService } from '../services/estudiante.service';
 })
 export class PageEstudianteComponent implements OnInit {
 
+  public estudiante!: Estudiante;
+
   constructor(
     private estudianteService: EstudianteService
   ) { }
 
   ngOnInit(): void {
+    this.estudiante = this.estudianteService.estudiante;
   }
 
   public signOff(){
