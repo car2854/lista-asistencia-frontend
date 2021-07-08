@@ -3,6 +3,11 @@
 </ng-container>
 <ng-template #content>
 
+  <app-back-button
+    url='/main-estudiante/materias'
+    [id]='examen.materia._id'
+  ></app-back-button>
+
   <div class="title">
     <h1>{{examen.materia.nombre}}</h1>
     <p>Profesor: {{examen.profesor}}</p>
@@ -18,7 +23,7 @@
 
 </ng-template>
 
-<div class="container">
+<div class="container text-center">
   <p>Por favor, mire a la camara para el reconocimiento</p>
   <div class="cam" #cam>
     <app-video-player 

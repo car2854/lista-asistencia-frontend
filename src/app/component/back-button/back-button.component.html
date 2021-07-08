@@ -1,0 +1,17 @@
+<ng-container *ngIf="id === 'none'; else elseTemplate">
+
+  <button 
+    class="btn btn-primary"
+    [routerLink]="[url]"
+  >Volver atrasAtras</button>  
+
+</ng-container>
+
+<ng-template #elseTemplate>
+
+  <button 
+    class="btn btn-primary"
+    [routerLink]="[url,id]"
+  >Volver atrasAtras</button>
+
+</ng-template>

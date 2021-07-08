@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, ViewChildren } from '@angular/core';
 import { Examen } from 'src/app/models/examen.model';
 import { ExamenService } from '../../services/examen.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ProfesorService } from '../../services/profesor.service';
 
@@ -21,6 +21,7 @@ export class VerExamenComponent implements OnInit {
   public currentStream: any;
 
   constructor(
+    private router: Router,
     private examenService: ExamenService,
     private activatedRouter: ActivatedRoute,
     private profesorService: ProfesorService
@@ -41,6 +42,8 @@ export class VerExamenComponent implements OnInit {
           .subscribe((resp:any) => {
             this.examen.profesor = resp.profesor.nombre;
             this.loading = false;
+            console.log(this.examen);
+            
             this.checkMediaSource();
             this.getSizeCam();
           },(err) => {
@@ -61,7 +64,7 @@ export class VerExamenComponent implements OnInit {
         audio: false,
         video: true
       }).then(stream => {
-        this.currentStream = stream;
+        this.currentStream = stream;        
       }).catch(() => {
         console.log('**** ERROR NOT PERMISSIONS *****');
       });

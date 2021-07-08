@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoadingComponent } from './loading/loading.component';
 import { EmptyContentComponent } from './empty-content/empty-content.component';
 import { VideoPlayerComponent } from './video-player/video-player.component';
+import { BackButtonComponent } from './back-button/back-button.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -13,17 +15,20 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
     CrearAlumnoComponent,
     LoadingComponent,
     EmptyContentComponent,
-    VideoPlayerComponent
+    VideoPlayerComponent,
+    BackButtonComponent
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports: [
     CrearAlumnoComponent,
     LoadingComponent,
     EmptyContentComponent,
-    VideoPlayerComponent
+    VideoPlayerComponent,
+    BackButtonComponent
   ]
 })
 export class ComponentModule { }

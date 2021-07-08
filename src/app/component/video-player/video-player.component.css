@@ -1,6 +1,9 @@
-canvas{
+video{
   position: absolute;
-  top: 0;
+  margin-left: auto;
+  margin-right: auto;
   left: 0;
-  display: flex;
+  right: 0;
+  text-align: center;
+  z-index: -1;
 }

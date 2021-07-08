@@ -92,6 +92,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     const {globalFace} = this.faceApiService;
     this.overCanvas = globalFace.createCanvasFromMedia(this.videoElement.nativeElement);
     this.renderer2.setProperty(this.overCanvas, 'id', 'new-canvas-over');
+    this.renderer2.setStyle(this.overCanvas, 'z-index', '1');
     this.renderer2.appendChild(this.elementRef.nativeElement, this.overCanvas);
   }
   
