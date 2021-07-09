@@ -10,19 +10,21 @@
   <app-back-button
     url="/main-estudiante"
   ></app-back-button>
-
+  
   <div class="text-center"><h2>Lista de Examenes</h2></div>
 
-  <div class="row">
-    <div class="col-md-3" *ngFor="let examen of examenes">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Examen: {{examen.materia.nombre}}</h5>
-          <p class="card-text">{{examen.titulo}}</p>
-          <a 
-            class="btn btn-primary"
-            [routerLink]="['/main-estudiante/examen',examen._id]"
-          >Entrar</a>
+  <div class="collection-box">
+    <div class="row">
+      <div class="col-md-3" *ngFor="let examen of examenes">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Examen: {{examen.materia.nombre}}</h5>
+            <p class="card-text">{{examen.titulo}}</p>
+            <a 
+              class="btn btn-primary"
+              [routerLink]="['/main-estudiante/examen',examen._id]"
+            >Entrar</a>
+          </div>
         </div>
       </div>
     </div>

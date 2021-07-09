@@ -9,52 +9,56 @@
 
 <h2 class="text-center">Examen</h2>
 
-<div class="row">
-  <div class="col-md-6">
-    <div class="form-group">
-      <label>Materia</label>
-      <input class="form-control" type="text" value="{{examen.materia.nombre}} - {{examen.materia.descripcion}}">
+<div class="form">
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Materia</label>
+        <input class="form-control" type="text" value="{{examen.materia.nombre}} - {{examen.materia.descripcion}}">
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label>Enlace</label>
+        <input class="form-control" type="text" [value]="examen.descripcion">
+      </div>
     </div>
   </div>
+  
+  <hr>
+  
   <div class="col">
-    <div class="form-group">
-      <label>Enlace</label>
-      <input class="form-control" type="text" [value]="examen.descripcion">
-    </div>
+    <button class="btn btn-primary">Ver estudiantes en el examen</button>
+    <button class="btn btn-primary">Ver estudiantes que faltaron</button>
   </div>
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Foto</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>the Bird</td>
+      </tr>
+    </tbody>
+  </table>  
+
 </div>
-
-<hr>
-
-<div class="col">
-  <button class="btn btn-primary">Ver estudiantes en el examen</button>
-  <button class="btn btn-primary">Ver estudiantes que faltaron</button>
-</div>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Foto</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Email</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-    </tr>
-  </tbody>
-</table>  
 </ng-template>

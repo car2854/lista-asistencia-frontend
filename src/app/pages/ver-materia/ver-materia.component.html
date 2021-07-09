@@ -11,61 +11,65 @@
 
 <h3 class="text-center">{{materia.nombre}}</h3>
 
-<div class="row">
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="">Materia</label>
-      <input class="form-control" type="text" [value]="materia.nombre">
-    </div>
-  </div>
-  <div class="col">
-    <div class="form-group">
-      <label for="">Descripcion</label>
-      <input class="form-control" type="text" [value]="materia.descripcion">
-    </div>
-  </div>
-</div>
+<div class="form">
 
-<hr>
-
-  <h4 class="text-center">Agregar estudiantes</h4>
-
+  
   <div class="row">
-    <div class="col-md-10">
-      <select class="form-control" id="exampleFormControlSelect1">
-        <option>Estudiante 1</option>
-        <option>Estudiante 2</option>
-        <option>Estudiante 3</option>
-        <option>Estudiante 4</option>
-        <option>Estudiante 5</option>
-      </select>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="">Materia</label>
+        <input class="form-control" type="text" [value]="materia.nombre">
+      </div>
     </div>
     <div class="col">
-      <button class="btn btn-success">Agregar</button>
+      <div class="form-group">
+        <label for="">Descripcion</label>
+        <input class="form-control" type="text" [value]="materia.descripcion">
+      </div>
     </div>
   </div>
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Imagen</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Email</th>
-        <th scope="col" class="acciones">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let estudiante of estudiantes">
-        <th scope="row">
-          <img src="{{estudiante.foto1}}" alt="{{estudiante.nombre}}">
-        </th>
-        <td>{{estudiante.nombre}}</td>
-        <td>{{estudiante.email}}</td>
-        <td>
-          <button class="btn btn-danger">X</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>  
+  
+  <hr>
+  
+    <h4 class="text-center">Agregar estudiantes</h4>
+  
+    <div class="row">
+      <div class="col-md-10">
+        <select class="form-control" id="exampleFormControlSelect1">
+          <option>Estudiante 1</option>
+          <option>Estudiante 2</option>
+          <option>Estudiante 3</option>
+          <option>Estudiante 4</option>
+          <option>Estudiante 5</option>
+        </select>
+      </div>
+      <div class="col">
+        <button class="btn btn-success">Agregar</button>
+      </div>
+    </div>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Imagen</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Email</th>
+          <th scope="col" class="acciones">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let estudiante of estudiantes">
+          <th scope="row">
+            <img src="{{estudiante.foto1}}" alt="{{estudiante.nombre}}">
+          </th>
+          <td>{{estudiante.nombre}}</td>
+          <td>{{estudiante.email}}</td>
+          <td>
+            <button class="btn btn-danger">X</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>  
+</div>
 </ng-template>
 

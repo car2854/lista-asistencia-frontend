@@ -13,77 +13,79 @@
   </div>
 </ng-template>
 
-
-<div class="row">
-  <div class="col-md-3 mb-3" *ngFor="let examen of examenes">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">{{examen.materia.nombre}} <code>{{examen.titulo}}</code> <p>{{examen.materia.descripcion}}</p></h5>
-        <p class="card-text">{{examen.descripcion}}.</p>
-        <a 
-          class="btn btn-primary"
-          [routerLink]="['/main/examen',examen._id]"
-        >Ver mas</a>
+<div class="collection-box">
+  <div class="row">
+    <div class="col-md-3 mb-3" *ngFor="let examen of examenes">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{examen.materia.nombre}} <code>{{examen.titulo}}</code> <p>{{examen.materia.descripcion}}</p></h5>
+          <p class="card-text">{{examen.descripcion}}.</p>
+          <a 
+            class="btn btn-primary"
+            [routerLink]="['/main/examen',examen._id]"
+          >Ver mas</a>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<h3 class="text-center">Crear nuevo Examen</h3>
-
-<form
-  class="login-form"
-  autocomplete="off"
-  [formGroup]="examenForm"
-  (submit)="guardar()"
->
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label>Titulo del examen</label>
-        <input type="text" class="form-control" formControlName="titulo">
-      </div>
-
-      <p 
-        class="error-form"
-        *ngIf="campoNoValido('titulo')"
-      >La descripcion es obligatoria</p>
-
-    </div>
-    <div class="col-md-6">
-      <div class="form-group">
-        <label>Materias</label>
-        <select 
-          class="form-control"
-          formControlName="materia"
-        >
-          <option value="">--Seleccione la materia--</option>
-          <option *ngFor="let materia of materias" [value]="materia._id">{{materia.nombre}} - {{materia.descripcion}}</option>
-        </select>
-
+<div class="form">
+  <h3 class="text-center">Crear nuevo Examen</h3>
+  <form
+    class="login-form"
+    autocomplete="off"
+    [formGroup]="examenForm"
+    (submit)="guardar()"
+  >
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Titulo del examen</label>
+          <input type="text" class="form-control" formControlName="titulo">
+        </div>
+  
         <p 
           class="error-form"
-          *ngIf="campoNoValido('materia')"
+          *ngIf="campoNoValido('titulo')"
         >La descripcion es obligatoria</p>
-
+  
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Materias</label>
+          <select 
+            class="form-control"
+            formControlName="materia"
+          >
+            <option value="">--Seleccione la materia--</option>
+            <option *ngFor="let materia of materias" [value]="materia._id">{{materia.nombre}} - {{materia.descripcion}}</option>
+          </select>
+  
+          <p 
+            class="error-form"
+            *ngIf="campoNoValido('materia')"
+          >La descripcion es obligatoria</p>
+  
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Enlace del examen</label>
+          <input type="text" class="form-control" formControlName="descripcion">
+        </div>
+  
+        <p 
+          class="error-form"
+          *ngIf="campoNoValido('descripcion')"
+        >La descripcion es obligatoria</p>
+  
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="form-group">
-        <label>Enlace del examen</label>
-        <input type="text" class="form-control" formControlName="descripcion">
-      </div>
-
-      <p 
-        class="error-form"
-        *ngIf="campoNoValido('descripcion')"
-      >La descripcion es obligatoria</p>
-
+    <div class="text-center">
+      <button class="btn btn-primary" type="submit">Crear Examen</button>
     </div>
-  </div>
-  <div class="text-center">
-    <button class="btn btn-primary" type="submit">Crear Examen</button>
-  </div>
-</form>
+  </form>
+</div>
 
 </ng-template>

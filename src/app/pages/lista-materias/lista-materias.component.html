@@ -15,128 +15,132 @@
     </div>
   </ng-template>
 
-  <div class="row">
-
-
-    <div class="col-md-3" *ngFor="let materia of materias">
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title">{{materia.nombre}} </h5>
-          <p class="card-text">{{materia.descripcion}}</p>
-          <a 
-            class="btn btn-primary"
-            [routerLink]="['/main/materias',materia._id]"
-          >Ver mas</a>
+  <div class="collection-box">
+    <div class="row">
+      <div class="col-md-3" *ngFor="let materia of materias">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{materia.nombre}} </h5>
+            <p class="card-text">{{materia.descripcion}}</p>
+            <a 
+              class="btn btn-primary"
+              [routerLink]="['/main/materias',materia._id]"
+            >Ver mas</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <h3 class="text-center pb-3">Crear nueva Materia</h3>
-  
-  <form
-    class="login-form"
-    autocomplete="off"
-    [formGroup]="materiaForm"
-    (submit)="guardar()"
-  >
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="">Descripcion de la materia</label>
-          <textarea 
-            class="form-control" 
-            cols="30" 
-            rows="5"
-            formControlName="descripcion"
-          ></textarea>
-        </div>
-        <p 
-          class="error-form"
-          *ngIf="campoNoValido('descripcion')"
-        >La descripcion es obligatoria</p>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="">Seleccione el nombre de la Materia</label>
-          
-          <select 
-            class="form-control" 
-            id="exampleFormControlSelect1"
-            formControlName="nombre"
-          >
-          
-            <option value="">--Seleccione una materia--</option>
-            <option>Matematicas</option>
-            <option>Literatura</option>
-            <option>Ingles</option>
-            <option>Ciencias</option>
-            <option>Deportes</option>
-          
-          </select>
-
+  <div class="form">
+    <h3 class="text-center pb-3">Crear nueva Materia</h3>    
+    <form
+      class="login-form"
+      autocomplete="off"
+      [formGroup]="materiaForm"
+      (submit)="guardar()"
+    >
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Descripcion de la materia</label>
+            <textarea 
+              class="form-control" 
+              cols="30" 
+              rows="5"
+              formControlName="descripcion"
+            ></textarea>
+          </div>
           <p 
             class="error-form"
-            *ngIf="campoNoValido('nombre')"
-          >Debe seleccionar una materia</p>
+            *ngIf="campoNoValido('descripcion')"
+          >La descripcion es obligatoria</p>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Seleccione el nombre de la Materia</label>
+            
+            <select 
+              class="form-control" 
+              id="exampleFormControlSelect1"
+              formControlName="nombre"
+            >
+            
+              <option value="">--Seleccione una materia--</option>
+              <option>Matematicas</option>
+              <option>Literatura</option>
+              <option>Ingles</option>
+              <option>Ciencias</option>
+              <option>Deportes</option>
+            
+            </select>
+  
+            <p 
+              class="error-form"
+              *ngIf="campoNoValido('nombre')"
+            >Debe seleccionar una materia</p>
+          </div>
         </div>
       </div>
-    </div>
-  
-    <hr>
-  
-    <h4 class="text-center">Agregar estudiantes</h4>
-  
     
-  
-      <div class="row">
-        <div class="col-md-10">
-          <select class="form-control" id="exampleFormControlSelect1" (change)="onChange($event.target)">
-            <option value="">--Seleccione un estudiante--</option>
-            <option *ngFor="let estudiante of estudiantes" [value]="estudiante._id">{{estudiante.nombre}} - {{estudiante.email}}</option>
-          </select>
+      <hr>
+    
+      <h4 class="text-center">Agregar estudiantes</h4>
+    
+      
+    
+        <div class="row">
+          <div class="col-md-10">
+            <select class="form-control" id="exampleFormControlSelect1" (change)="onChange($event.target)">
+              <option value="">--Seleccione un estudiante--</option>
+              <option *ngFor="let estudiante of estudiantes" [value]="estudiante._id">{{estudiante.nombre}} - {{estudiante.email}}</option>
+            </select>
+          </div>
+          <div class="col">
+            <button class="btn btn-primary" (click)="agregar()" type="button">Agregar</button>
+          </div>
         </div>
-        <div class="col">
-          <button class="btn btn-primary" (click)="agregar()" type="button">Agregar</button>
+    
+    
+    
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" class="tablaImagen">Imagen</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Email</th>
+            <th scope="col" class="acciones">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let estudiante of tablaEstudiantes">
+            <th scope="row">
+              <img src="{{estudiante.foto1}}" alt="{{estudiante.nombre}}">
+            </th>
+            <td>{{estudiante.nombre}}</td>
+            <td>{{estudiante.email}}</td>
+            <td>
+              <button class="btn btn-danger" (click)="eliminar(estudiante)">X</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <ng-container *ngIf="sendForm; else elseTemplate">
+        <div class="text-center">
+          <button class="btn btn-primary" type="submit" disabled>Crear Materia</button>
         </div>
-      </div>
-  
-  
-  
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col" class="tablaImagen">Imagen</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Email</th>
-          <th scope="col" class="acciones">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let estudiante of tablaEstudiantes">
-          <th scope="row">
-            <img src="{{estudiante.foto1}}" alt="{{estudiante.nombre}}">
-          </th>
-          <td>{{estudiante.nombre}}</td>
-          <td>{{estudiante.email}}</td>
-          <td>
-            <button class="btn btn-danger" (click)="eliminar(estudiante)">X</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    
-    <ng-container *ngIf="sendForm; else elseTemplate">
-      <div class="text-center">
-        <button class="btn btn-primary" type="submit" disabled>Crear Materia</button>
-      </div>
-    </ng-container>
-    <ng-template #elseTemplate>
-      <div class="text-center">
-        <button class="btn btn-primary" type="submit">Crear Materia</button>
-      </div>  
-    </ng-template>
-    
-  </form>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <div class="text-center">
+          <button class="btn btn-primary" type="submit">Crear Materia</button>
+        </div>  
+      </ng-template>
+      
+    </form>
+  </div>
+
+
+
 </ng-template>
 
