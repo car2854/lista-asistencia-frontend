@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
     password  : ['123456', [Validators.required]]
   });
 
+  public sendForm: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -25,13 +27,30 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public campoNoValido(campo:string):boolean{
+    
+    if (this.loginForm.get(campo)?.invalid && !this.sendForm){
+      return true
+    }else{
+      return false;
+    }
+
+  }
+
   public login(){
+
+    if (!this.sendForm && this.loginForm.invalid){
+      return;
+    }
+
+    this.sendForm = true;
+
     this.profesorService.login(this.loginForm.value)
     .subscribe( (resp:any) => {
       this.router.navigateByUrl('main/materias');
     }, (err) => {
       console.log(err);
-      
+      this.sendForm = false;
       Swal.fire("Error", err.error.msg, 'error');
     })
   }

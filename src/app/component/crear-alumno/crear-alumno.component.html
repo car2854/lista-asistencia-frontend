@@ -30,8 +30,8 @@
                       >
                       
                       <p 
-                        
-                        class="error"
+                        class="error-form"
+                        *ngIf="campoNoValido('nombre')"
                       >El nombre es obligatorio</p>
 
                     </div>
@@ -46,8 +46,8 @@
                       >
                       
                       <p 
-                        
-                        class="error"
+                        class="error-form"
+                        *ngIf="campoNoValido('email')"
                       >El email es obligatorio</p>
 
                     </div>
@@ -67,9 +67,9 @@
                       >
                       
                       <p 
-                        
-                        class="error"
-                      >El ci es obligatorio</p>
+                        class="error-form"
+                        *ngIf="campoNoValido('ci')"
+                      >El carnet es obligatorio</p>
 
                     </div>
                   </div>
@@ -94,8 +94,8 @@
                       <img *ngIf="imgTemp1" [src]="imgTemp1" class="img-avatar pointer" alt="logo" (click)="changeEvent1()">
                       
                       <p 
-                        
-                        class="error"
+                        class="error-form"
+                        *ngIf="campoNoValido('foto1')"
                       >La foto1 es obligatorio</p>
                     </div>
                   </div>
@@ -112,8 +112,8 @@
                       <img *ngIf="!imgTemp2" src="../../../assets/images/no-image.jpg" class="img-avatar pointer" alt="logo" (click)="changeEvent2()">
                       <img *ngIf="imgTemp2" [src]="imgTemp2" class="img-avatar pointer" alt="logo" (click)="changeEvent2()">
                       <p 
-                        
-                        class="error"
+                        class="error-form"
+                        *ngIf="campoNoValido('foto2')"
                       >La foto2 es obligatorio</p>
 
 
@@ -133,8 +133,8 @@
                       <img *ngIf="!imgTemp3" src="../../../assets/images/no-image.jpg" class="img-avatar pointer" alt="logo" (click)="changeEvent3()">
                       <img *ngIf="imgTemp3" [src]="imgTemp3" class="img-avatar pointer" alt="logo" (click)="changeEvent3()">
                       <p 
-                        
-                        class="error"
+                        class="error-form"
+                        *ngIf="campoNoValido('foto3')"
                       >La foto3 es obligatorio</p>
 
 

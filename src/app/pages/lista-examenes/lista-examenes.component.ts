@@ -6,6 +6,7 @@ import { ExamenService } from '../../services/examen.service';
 import { MateriasService } from '../../services/materias.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ExamenForm } from '../../interfaces/crearExamen.form';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-examenes',
@@ -28,8 +29,11 @@ export class ListaExamenesComponent implements OnInit {
   private loadingExamenes: Boolean = true;
   private loadingMaterias: Boolean = true;
 
+  public sendForm: boolean = false;
+
   constructor(
     private examenService: ExamenService,
+    private router: Router,
     private materiasService: MateriasService,
     private fb: FormBuilder
   ) { }
@@ -60,7 +64,24 @@ export class ListaExamenesComponent implements OnInit {
 
   }
 
+  public campoNoValido(campo:string):boolean{
+    
+    if (this.examenForm.get(campo)?.invalid && !this.sendForm){
+      return true
+    }else{
+      return false;
+    }
+
+  }
+
   public guardar(){
+
+    if (!this.sendForm && this.examenForm.invalid){
+      return;
+    }
+
+    this.sendForm = true;
+
     const data = {
       descripcion : this.examenForm.value.descripcion,
       id          : this.examenForm.value.materia,
@@ -68,6 +89,10 @@ export class ListaExamenesComponent implements OnInit {
     }
     this.examenService.crearExamen(data)
       .subscribe((resp:any) => {
+
+        const url = `main/examen/${resp.examen._id}`;
+        this.router.navigateByUrl(url);
+
         this.examenService.getExamen(resp.examen._id)
           .subscribe((resp:any) => {
             this.examenes.push(resp.examen);
@@ -78,6 +103,7 @@ export class ListaExamenesComponent implements OnInit {
             Swal.fire("Error", 'No se pudo obtener el nuevo examen', 'error');
           })
       }, (err) => {
+        this.sendForm = false;
         Swal.fire("Error", 'No se pudo crear el examen', 'error');
       })
   }

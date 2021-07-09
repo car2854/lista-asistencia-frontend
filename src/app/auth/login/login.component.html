@@ -21,18 +21,36 @@
         placeholder="Email"
         formControlName="email"
       >
+      
+      <p 
+        class="error-form"
+        *ngIf="campoNoValido('email')"
+      >El email es obligatorio</p>
+
     </div>
-    <div class="form-group d-flex">
+    <div class="form-group">
       <input 
         type="password" 
         class="form-control rounded-left" 
         placeholder="Password"
         formControlName="password"
       >
+      <p 
+        class="error-form"
+        *ngIf="campoNoValido('password')"
+      >La contraseña es obligatorio</p>
+
     </div>
     <h5 class="text-center mb-4">No tienes una cuenta? <a href="" routerLink="/auth/register">Registrate</a></h5>
     <div class="form-group">
-      <button type="submit" class="btn btn-primary rounded submit p-3 px-5">Login</button>
+      
+      <ng-container *ngIf="!sendForm; else elseTemplate">
+        <button type="submit" class="btn btn-primary rounded submit p-3 px-5">Login</button>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <button type="submit" class="btn btn-primary rounded submit p-3 px-5" disabled>Login</button>
+      </ng-template>
+
     </div>
   </form>
 </div>

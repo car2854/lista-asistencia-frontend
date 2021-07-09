@@ -8,15 +8,13 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
 import { BackButtonComponent } from './back-button/back-button.component';
 import { RouterModule } from '@angular/router';
 
-
-
 @NgModule({
   declarations: [
     CrearAlumnoComponent,
     LoadingComponent,
     EmptyContentComponent,
     VideoPlayerComponent,
-    BackButtonComponent
+    BackButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -28,7 +26,7 @@ import { RouterModule } from '@angular/router';
     LoadingComponent,
     EmptyContentComponent,
     VideoPlayerComponent,
-    BackButtonComponent
+    BackButtonComponent,
   ]
 })
 export class ComponentModule { }

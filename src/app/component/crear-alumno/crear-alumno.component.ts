@@ -25,6 +25,8 @@ export class CrearAlumnoComponent implements OnInit {
   public imgTemp3?: any;
   public imagenSubir3!: File;
 
+  public sendForm: boolean = false;
+
   public estudianteForm = this.fb.group({
     email   : ['', [Validators.required]],
     nombre  : ['', [Validators.required]],  
@@ -42,7 +44,24 @@ export class CrearAlumnoComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public campoNoValido(campo:string):boolean{
+    
+    if (this.estudianteForm.get(campo)?.invalid && !this.sendForm){
+      return true
+    }else{
+      return false;
+    }
+
+  }
+
   guardar(){
+
+    if (!this.sendForm && this.estudianteForm.invalid){
+      return;
+    }
+
+    this.sendForm = true;
+
     this.estudianteService.crearEstudiante(this.estudianteForm.value)
       .subscribe((resp: any) => {
         
@@ -51,11 +70,13 @@ export class CrearAlumnoComponent implements OnInit {
             Swal.fire('Guardados','Estudiante creado', 'success');
             this.closeModal.nativeElement.click();
           }).catch(err => {
+            this.sendForm = false;
             console.log(err);
             Swal.fire('Error','No se pudo guardar las imagenes', 'error');
           })
 
       }, (err) => {
+        this.sendForm = false;
         Swal.fire("Error", err.error.msg, 'error');
       })
   }

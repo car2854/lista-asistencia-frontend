@@ -4,13 +4,16 @@
 </div>
 <ng-template #content>
   
-  <ng-container *ngIf="materias.length == 0">
+  
+  <ng-container *ngIf="materias.length == 0; else lista">
     <app-empty-content mensaje="No tienes materias creadas"></app-empty-content>
   </ng-container>
-
-  <div class="text-center">
-    <h2>Lista de materias</h2>
-  </div>
+  
+  <ng-template #lista>
+    <div class="text-center">
+      <h2>Lista de materias</h2>
+    </div>
+  </ng-template>
 
   <div class="row">
 
@@ -18,7 +21,7 @@
     <div class="col-md-3" *ngFor="let materia of materias">
       <div class="card mb-3">
         <div class="card-body">
-          <h5 class="card-title">{{materia.nombre}}</h5>
+          <h5 class="card-title">{{materia.nombre}} </h5>
           <p class="card-text">{{materia.descripcion}}</p>
           <a 
             class="btn btn-primary"
@@ -28,8 +31,7 @@
       </div>
     </div>
   </div>
-  
-  <hr>
+
   <h3 class="text-center pb-3">Crear nueva Materia</h3>
   
   <form
@@ -49,6 +51,10 @@
             formControlName="descripcion"
           ></textarea>
         </div>
+        <p 
+          class="error-form"
+          *ngIf="campoNoValido('descripcion')"
+        >La descripcion es obligatoria</p>
       </div>
       <div class="col-md-6">
         <div class="form-group">
@@ -60,7 +66,7 @@
             formControlName="nombre"
           >
           
-            <option>--Seleccione una materia--</option>
+            <option value="">--Seleccione una materia--</option>
             <option>Matematicas</option>
             <option>Literatura</option>
             <option>Ingles</option>
@@ -68,6 +74,11 @@
             <option>Deportes</option>
           
           </select>
+
+          <p 
+            class="error-form"
+            *ngIf="campoNoValido('nombre')"
+          >Debe seleccionar una materia</p>
         </div>
       </div>
     </div>
@@ -114,10 +125,18 @@
         </tr>
       </tbody>
     </table>
-  
-    <div class="text-center">
-      <button class="btn btn-primary" type="submit">Crear Materia</button>
-    </div>
+    
+    <ng-container *ngIf="sendForm; else elseTemplate">
+      <div class="text-center">
+        <button class="btn btn-primary" type="submit" disabled>Crear Materia</button>
+      </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <div class="text-center">
+        <button class="btn btn-primary" type="submit">Crear Materia</button>
+      </div>  
+    </ng-template>
+    
   </form>
 </ng-template>
 

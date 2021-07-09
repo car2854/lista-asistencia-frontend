@@ -7,3 +7,7 @@ tr th img{
   width: 150px;
 }
 
+.error-form{
+  color: red;
+  font-size: 12px;
+}

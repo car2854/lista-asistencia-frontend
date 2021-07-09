@@ -3,19 +3,22 @@
 </ng-container>
 <ng-template #content>
 
-<ng-container *ngIf="examenes.length == 0">
+<ng-container *ngIf="examenes.length == 0; else title">
   <app-empty-content mensaje="No tienes examenes creados"></app-empty-content>
 </ng-container>
 
-<div class="text-center">
-  <h2>Lista de Examenes</h2>
-</div>
+<ng-template #title>
+  <div class="text-center">
+    <h2>Lista de Examenes</h2>
+  </div>
+</ng-template>
+
 
 <div class="row">
   <div class="col-md-3 mb-3" *ngFor="let examen of examenes">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">{{examen.materia.nombre}} <p>{{examen.materia.descripcion}}</p></h5>
+        <h5 class="card-title">{{examen.materia.nombre}} <code>{{examen.titulo}}</code> <p>{{examen.materia.descripcion}}</p></h5>
         <p class="card-text">{{examen.descripcion}}.</p>
         <a 
           class="btn btn-primary"
@@ -26,8 +29,6 @@
   </div>
 </div>
 
-
-<hr>
 <h3 class="text-center">Crear nuevo Examen</h3>
 
 <form
@@ -42,6 +43,12 @@
         <label>Titulo del examen</label>
         <input type="text" class="form-control" formControlName="titulo">
       </div>
+
+      <p 
+        class="error-form"
+        *ngIf="campoNoValido('titulo')"
+      >La descripcion es obligatoria</p>
+
     </div>
     <div class="col-md-6">
       <div class="form-group">
@@ -53,6 +60,12 @@
           <option value="">--Seleccione la materia--</option>
           <option *ngFor="let materia of materias" [value]="materia._id">{{materia.nombre}} - {{materia.descripcion}}</option>
         </select>
+
+        <p 
+          class="error-form"
+          *ngIf="campoNoValido('materia')"
+        >La descripcion es obligatoria</p>
+
       </div>
     </div>
     <div class="col-md-6">
@@ -60,6 +73,12 @@
         <label>Enlace del examen</label>
         <input type="text" class="form-control" formControlName="descripcion">
       </div>
+
+      <p 
+        class="error-form"
+        *ngIf="campoNoValido('descripcion')"
+      >La descripcion es obligatoria</p>
+
     </div>
   </div>
   <div class="text-center">

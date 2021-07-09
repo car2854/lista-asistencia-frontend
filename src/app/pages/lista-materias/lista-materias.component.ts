@@ -24,9 +24,11 @@ export class ListaMateriasComponent implements OnInit {
   public loadingMaterias: Boolean = true;
   public loadingEstudiantes: Boolean = true;
 
+  public sendForm: boolean = false;
+
   public materiaForm = this.fb.group({
     descripcion   : ['', [Validators.required]],
-    nombre        : ['--Seleccione una materia--', [Validators.required]]
+    nombre        : ['', [Validators.required]]
   });
 
   constructor(
@@ -109,7 +111,25 @@ export class ListaMateriasComponent implements OnInit {
     });
   }
 
+  public campoNoValido(campo:string):boolean{
+    
+    if (this.materiaForm.get(campo)?.invalid && !this.sendForm){
+      return true
+    }else{
+      return false;
+    }
+
+  }
+
   public guardar(){
+
+
+    if (!this.sendForm && this.materiaForm.invalid){
+      return;
+    }
+
+    this.sendForm = true;
+
     this.materiasService.crearMateria(this.materiaForm.value)
       .subscribe((resp:any) => {
         
@@ -124,17 +144,21 @@ export class ListaMateriasComponent implements OnInit {
           }
           this.estudianteService.inscribirEstudiante(data)
             .subscribe((resp:any) => {
-              // console.log(resp);
+              
+              
             }, (err) => {
               console.log(err);
+              this.sendForm = false;
             });
 
         });
         Swal.fire("Completado", 'Se creo la materia correctamente' , 'success');
         this.materiaForm.reset();
-        this.materiaForm.controls['nombre'].setValue('--Seleccione una materia--');
         this.tablaEstudiantes = [];
+        const url = `main/materias/${_id}`;
+        this.router.navigateByUrl(url);
       }, (err) => {
+        this.sendForm = false;
         Swal.fire("Error", err.error.msg, 'error');
       });
   }
