@@ -88,6 +88,11 @@ export class EstudianteService {
     return this.http.post(`${base_url}/estudiante/inscripcion`, formData, this.headers);
   }
 
+  // localhost:4000/api/estudiante/60e74ff4d2884534d8bd6d63/60e55e939fc9440b745cf030
+  public uninscribirEstudiante(id: string, materia: string){
+    return this.http.delete(`${base_url}/estudiante/${id}/${materia}`, this.headers);
+  }
+
   async guardarFotos(
     imagen1: File,
     imagen2: File,
