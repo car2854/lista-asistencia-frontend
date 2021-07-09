@@ -1,0 +1,11 @@
+.error{
+  background-color: white;
+}
+
+.btn{
+  padding: 6px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border: 1px solid;
+  border-radius: 0px;
+}

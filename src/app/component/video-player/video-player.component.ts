@@ -3,6 +3,8 @@ import { FaceApiService } from '../../services/face-api.service';
 import { VideoPlayService } from '../../services/video-play.service';
 import { Estudiante } from '../../models/estudiante.model';
 import { EstudianteService } from '../../services/estudiante.service';
+import { Examen } from '../../models/examen.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-video-player',
@@ -15,6 +17,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   @Input() stream:any;
   @Input() width!: number;
   @Input() height!: number;
+  @Input() examen!: Examen;
 
   public modelsReady: boolean = false;
 
@@ -26,21 +29,31 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
   private imagenesCargadas: boolean = false;
 
+  private countEvent: number = 0;
+  private countFaceAcept: number = 0;
+  private cantFaceAcept: number = 3;
+
+  public errorDetection:boolean = false;
+
   constructor(
     private renderer2: Renderer2,
     private elementRef: ElementRef,
     private faceApiService: FaceApiService,
     private videoPlayService: VideoPlayService,
     private estudianteService: EstudianteService,
+    private router: Router
   ) { }
   
   ngOnInit(): void {
     this.estudiante = this.estudianteService.estudiante;
     this.listenerEvent();
+    // console.log(this.examen._id);
+    
   }
   
   ngOnDestroy(): void {
     this.listEvents.forEach(event => event.unsubscribe());
+    this.videoElement.nativeElement.pause();
   }
 
   public listenerEvent = () => {
@@ -57,7 +70,9 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
     const observer2$ = this.videoPlayService.cbAi
       .subscribe( ({results1, results2, results3, resizedDetections, displaySize, results}) => {
-        console.log(results);
+
+        this.validarRegistro(results);
+
         resizedDetections = resizedDetections[0] || null;
         
 
@@ -69,6 +84,36 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     this.listEvents = [observer1$, observer2$];
   }
 
+  public validarRegistro(result:any){
+    console.log(result[0]);
+    // this.controlador++;
+    if (result[0]){
+      this.errorDetection = false;
+      
+      if (this.countEvent == 4){
+        this.countEvent = 0;
+        if (this.countFaceAcept >= this.cantFaceAcept){
+          // console.log('Es la persona');'
+          localStorage.setItem('_id',this.examen._id);
+          this.router.navigateByUrl('/main-estudiante/examen/accept')
+        }else{
+          this.router.navigateByUrl('/main-estudiante/examen/no-accept')
+        }
+      }else{
+        // console.log(result[0]);
+        
+        this.countEvent++;
+        if (result[0]._label != 'unknown'){
+          this.countFaceAcept++;
+        }
+      }
+
+    }else{
+      console.log('No se a detectado nada');
+      this.errorDetection = true;
+    }
+
+  }
 
   public drawFace = (resizeDetections : any, displaySize : any) => {
     const {globalFace} = this.faceApiService;
@@ -79,7 +124,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   public checkFace = () => {
     setInterval( async () => {
       await this.videoPlayService.getLandMark(this.videoElement);
-    }, 9000);
+    }, 3000);
   }
 
 
@@ -92,7 +137,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     const {globalFace} = this.faceApiService;
     this.overCanvas = globalFace.createCanvasFromMedia(this.videoElement.nativeElement);
     this.renderer2.setProperty(this.overCanvas, 'id', 'new-canvas-over');
-    this.renderer2.setStyle(this.overCanvas, 'z-index', '1');
+    this.renderer2.setStyle(this.overCanvas, 'z-index', '-1');
     this.renderer2.appendChild(this.elementRef.nativeElement, this.overCanvas);
   }
   

@@ -7,6 +7,8 @@ import { ListaMateriasComponent } from './lista-materias/lista-materias.componen
 import { VerMateriaComponent } from './ver-materia/ver-materia.component';
 import { ComponentModule } from '../component/component.module';
 import { VerExamenComponent } from './ver-examen/ver-examen.component';
+import { AcceptComponent } from './status-examen-cam/accept.component';
+import { NoAcceptComponent } from './status-examen-cam/no-accept.component';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { VerExamenComponent } from './ver-examen/ver-examen.component';
     PageEstudianteComponent,
     ListaMateriasComponent,
     VerMateriaComponent,
-    VerExamenComponent
+    VerExamenComponent,
+    AcceptComponent,
+    NoAcceptComponent
   ],
   imports: [
     CommonModule,

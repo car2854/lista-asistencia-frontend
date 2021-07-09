@@ -132,4 +132,18 @@ export class EstudianteService {
     }
 
   }
+
+
+  public getIngreso(id: string){
+    return this.http.get(`${base_url}/estudiante/obtenerIngreso/${id}`, this.headers);
+  }
+
+  public ingresarExamen(examen: String){
+    const data = {
+      examen
+    }
+
+    return this.http.post(`${base_url}/estudiante/ingresar`, data, this.headers);
+
+  }
 }

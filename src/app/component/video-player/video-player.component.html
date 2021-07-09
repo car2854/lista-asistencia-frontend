@@ -1,3 +1,7 @@
+<div class="error" *ngIf="errorDetection">
+  <p>Por favor, mire la camara</p>
+</div>
+
 <div *ngIf="modelsReady">
   <video 
     #videoElement 
