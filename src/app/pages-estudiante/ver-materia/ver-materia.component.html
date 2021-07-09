@@ -3,15 +3,21 @@
 </ng-container>
 <ng-template #content>
 
-  <ng-container *ngIf="examenes.length == 0">
+  <div class="pb-4">
+    <app-back-button
+      url="/main-estudiante"
+    ></app-back-button>
+  </div>
+  
+  
+  <ng-container *ngIf="examenes.length == 0; else title">
     <app-empty-content mensaje="No tienes examenes"></app-empty-content>
   </ng-container>
   
-  <app-back-button
-    url="/main-estudiante"
-  ></app-back-button>
+  <ng-template #title>
+    <div class="text-center"><h2>Lista de Examenes</h2></div>
+  </ng-template>
   
-  <div class="text-center"><h2>Lista de Examenes</h2></div>
 
   <div class="collection-box">
     <div class="row">

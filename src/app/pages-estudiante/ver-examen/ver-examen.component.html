@@ -3,10 +3,12 @@
 </ng-container>
 <ng-template #content>
 
-  <app-back-button
-    url='/main-estudiante/materias'
-    [id]='examen.materia._id'
-  ></app-back-button>
+  <div class="pb-4">
+    <app-back-button
+      url='/main-estudiante/materias'
+      [id]='examen.materia._id'
+    ></app-back-button>
+  </div>
 
   <div class="title">
     <h1>{{examen.materia.nombre}}</h1>
