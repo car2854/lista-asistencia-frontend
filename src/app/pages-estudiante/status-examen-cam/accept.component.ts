@@ -23,6 +23,8 @@ export class AcceptComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // this.recargar();
+
     if (localStorage.getItem('_id')){
       this._id = localStorage.getItem('_id') || '';
       this.cargarDatos();
@@ -32,6 +34,14 @@ export class AcceptComponent implements OnInit {
 
     localStorage.removeItem('_id');
     
+
+  }
+
+  public recargar(){
+
+    if (localStorage.getItem('recargar')){
+      window.location.reload();
+    }
 
   }
 

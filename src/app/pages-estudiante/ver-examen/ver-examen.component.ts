@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewChildren, OnDestroy } from '@angular/core';
 import { Examen } from 'src/app/models/examen.model';
 import { ExamenService } from '../../services/examen.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { ProfesorService } from '../../services/profesor.service';
   templateUrl: './ver-examen.component.html',
   styleUrls: ['./ver-examen.component.css']
 })
-export class VerExamenComponent implements OnInit {
+export class VerExamenComponent implements OnInit, OnDestroy {
   @ViewChild('cam') cam!: ElementRef;
 
 
@@ -25,6 +25,11 @@ export class VerExamenComponent implements OnInit {
     private activatedRouter: ActivatedRoute,
     private profesorService: ProfesorService
   ) { }
+
+
+  ngOnDestroy(): void {
+    window.location.reload();
+  }
 
   ngOnInit(): void {
     

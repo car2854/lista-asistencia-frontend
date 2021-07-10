@@ -10,6 +10,15 @@ export class NoAcceptComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    // this.recargar();
+  }
+
+  public recargar(){
+
+    if (localStorage.getItem('recargar')){
+      window.location.reload();
+    }
+
   }
 
 }
