@@ -6,6 +6,8 @@ import { Examen } from '../../models/examen.model';
 import { Estudiante } from 'src/app/models/estudiante.model';
 import { MateriasService } from '../../services/materias.service';
 
+import { Columns, PdfMakeWrapper, Table } from 'pdfmake-wrapper';
+
 @Component({
   selector: 'app-ver-examen',
   templateUrl: './ver-examen.component.html',
@@ -113,5 +115,19 @@ export class VerExamenComponent implements OnInit {
     this.estudiantes = newArray;
 
   }
+
+  public generarPDF(){
+    const pdf = new PdfMakeWrapper();
+
+    pdf.add(this.filterStatus);
+
+    
+    
+
+
+
+    pdf.create().download();
+  }
+
 
 }

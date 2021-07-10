@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { PdfMakeWrapper } from 'pdfmake-wrapper';
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+
+PdfMakeWrapper.setFonts(pdfFonts);
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
