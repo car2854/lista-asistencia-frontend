@@ -28,6 +28,7 @@ export class VerExamenComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
+    // localStorage.setItem('recargar','true');
     window.location.reload();
   }
 
