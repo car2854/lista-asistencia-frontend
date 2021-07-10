@@ -1,38 +1,11 @@
 
-  <ng-container *ngIf="loading; else content">
-    <app-loading></app-loading>
-  </ng-container>
-  <ng-template #content>
-
-
-  <div class="pb-4">
-    <app-back-button
-      url='/main-estudiante/materias'
-      [id]='examen.materia._id'
-    ></app-back-button>
-  </div>
-
-  <div class="title">
-    <h1>{{examen.materia.nombre}}</h1>
-    <p>Profesor: {{examen.profesor}}</p>
-  </div>
-
-  <div class="container">
-    <div class="text-center mt-5">
-      <p><code>Descripcion de la materia:</code> {{examen.materia.descripcion}}</p>
-      <p><code>Titulo del examen:</code> {{examen.titulo}}</p>
-    </div>
-  </div>
     
-  <div class="container text-center">
-    <p>Por favor, mire a la camara para el reconocimiento</p>
-    <div class="cam" #cam>
-      <app-video-player 
-        [stream]="currentStream"
-        [examen]="examen"
-      ></app-video-player>     
-    </div>
+<div class="container text-center">
+  <p>Por favor, mire a la camara para el reconocimiento</p>
+  <div class="cam" #cam>
+    <app-video-player 
+      [stream]="currentStream"
+      [examen]="examen"
+    ></app-video-player>     
   </div>
-
-
-</ng-template>
+</div>

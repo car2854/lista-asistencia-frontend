@@ -13,7 +13,7 @@ import { RegisterForm } from '../../interfaces/registerProfesor-form';
 export class LoginEstudianteComponent implements OnInit {
 
   public loginForm = this.fb.group({
-    email   : ['juan@gmail.com', [Validators.required, Validators.email]],
+    email   : ['sheldon@gmail.com', [Validators.required, Validators.email]],
     ci      : ['9843300', [Validators.required]]
   });
 

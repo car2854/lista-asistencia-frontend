@@ -14,47 +14,56 @@ export class VerExamenComponent implements OnInit {
   @ViewChild('cam') cam!: ElementRef;
 
 
-  public examen!: Examen;
+  public examen!: string;
   public loading: Boolean = true;
   public dimensionesCamara: any;
 
   public currentStream: any;
 
   constructor(
-    private router: Router,
     private examenService: ExamenService,
     private activatedRouter: ActivatedRoute,
     private profesorService: ProfesorService
   ) { }
 
   ngOnInit(): void {
-
-    this.activatedRouter.params.subscribe(({id}) => this.cargarExamen(id));
-
+    
+    this.activatedRouter.params.subscribe(({id}) => this.examen = id);
+    this.checkMediaSource();
+    console.log(this.examen);
+    
   }
 
-  public cargarExamen(id:string){
-    this.examenService.getExamen(id)
-      .subscribe((resp:any) => {
-        this.examen = resp.examen;
 
-        this.profesorService.getProfesor(this.examen.profesor)
-          .subscribe((resp:any) => {
-            this.examen.profesor = resp.profesor.nombre;
-            this.loading = false;
-            console.log(this.examen);
+  
+  // public cargarExamen(id:string){
+  //   this.examenService.getExamen(id)
+  //     .subscribe((resp:any) => {
+
+  //       console.log(resp);
+  //       console.log(id);
+
+
+  //       this.examen = resp.examen;
+
+  //       this.profesorService.getProfesor(this.examen.profesor)
+  //         .subscribe((resp:any) => {
+  //           this.examen.profesor = resp.profesor.nombre;
+  //           this.loading = false;
+  //           console.log(this.examen);
             
-            this.checkMediaSource();
-            this.getSizeCam();
-          },(err) => {
-            Swal.fire("Error", err.errrs, 'error');
-          })
+  //           this.checkMediaSource();
+  //           this.getSizeCam();
+  //         },(err) => {
+  //           Swal.fire("Error", err.errrs, 'error');
+  //         })
 
         
-      }, (err) => {
-        Swal.fire("Error", err.errrs, 'error');
-      })
-  }
+  //     }, (err) => {
+  //       Swal.fire("Error", err.errrs, 'error');
+  //     })
+  // }
+
 
 
   checkMediaSource = () => {
@@ -74,14 +83,4 @@ export class VerExamenComponent implements OnInit {
     }
   };
 
-  public getSizeCam = () => {
-    const elementCam: HTMLElement = this.cam.nativeElement;
-    // console.log(elementCam);
-    
-    if (elementCam){
-      const {width, height} = elementCam.getBoundingClientRect();
-      // this.dimensionesCamara.width = width;
-      // this.dimensionesCamara.height = height;
-    }
-  };
 }

@@ -17,7 +17,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   @Input() stream:any;
   @Input() width!: number;
   @Input() height!: number;
-  @Input() examen!: Examen;
+  @Input() examen!: string;
 
   public modelsReady: boolean = false;
 
@@ -94,7 +94,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
         this.countEvent = 0;
         if (this.countFaceAcept >= this.cantFaceAcept){
           // console.log('Es la persona');'
-          localStorage.setItem('_id',this.examen._id);
+          localStorage.setItem('_id',this.examen);
           this.router.navigateByUrl('/main-estudiante/examen/accept')
         }else{
           this.router.navigateByUrl('/main-estudiante/examen/no-accept')
