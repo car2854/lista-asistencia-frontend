@@ -29,10 +29,14 @@
   <hr>
   
   <div class="col">
-    <button class="btn btn-primary">Ver estudiantes en el examen</button>
-    <button class="btn btn-primary">Ver estudiantes que faltaron</button>
+    <button class="btn btn-primary" (click)="verEstudiantesExamen()">Ver estudiantes en el examen</button>
+    <button class="btn btn-primary" (click)="verEstudiantesNoExamen()">Ver estudiantes que faltaron</button>
   </div>
   
+  <div class="text-center p-3">
+    <h4>{{filterStatus}}</h4>
+  </div>
+
   <table class="table">
     <thead>
       <tr>
@@ -42,20 +46,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
+      <tr *ngFor="let estudiante of estudiantes">
+        <th scope="row">
+          <img [src]="estudiante.foto1" alt="">
+        </th>
+        <td>{{estudiante.nombre}}</td>
+        <td>{{estudiante.email}}</td>
       </tr>
     </tbody>
   </table>  

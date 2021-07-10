@@ -36,8 +36,10 @@ export class ExamenService {
 
   public getExamen(id: string){
     return this.httpClient.get(`${base_url}/examen/${id}`, this.headers);
+  }
 
-    
+  public getEstudiantesExamen(id: string){
+    return this.httpClient.get(`${base_url}/examen/estudiantes/${id}`, this.headers);
   }
 
 }
