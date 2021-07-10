@@ -68,7 +68,7 @@ export class VerExamenComponent implements OnInit {
 
   checkMediaSource = () => {
     if (navigator && navigator.mediaDevices) {
-
+      
       navigator.mediaDevices.getUserMedia({
         audio: false,
         video: true

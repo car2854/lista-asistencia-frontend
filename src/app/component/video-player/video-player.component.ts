@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 })
 export class VideoPlayerComponent implements OnInit, OnDestroy {
 
+  public interval: any;
+
   @ViewChild('videoElement') videoElement!: ElementRef;
   @Input() stream:any;
   @Input() width!: number;
@@ -47,13 +49,13 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.estudiante = this.estudianteService.estudiante;
     this.listenerEvent();
-    // console.log(this.examen._id);
-    
   }
   
   ngOnDestroy(): void {
     this.listEvents.forEach(event => event.unsubscribe());
-    this.videoElement.nativeElement.pause();
+    // this.videoElement.nativeElement.pause();
+
+    clearInterval(this.interval);
   }
 
   public listenerEvent = () => {
@@ -116,20 +118,22 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   }
 
   public drawFace = (resizeDetections : any, displaySize : any) => {
+    console.log('4');
     const {globalFace} = this.faceApiService;
     this.overCanvas.getContext('2d').clearRect('0','0', displaySize.width, displaySize.height);
     globalFace.draw.drawDetections(this.overCanvas, resizeDetections);
   }
 
   public checkFace = () => {
-    setInterval( async () => {
+    this.interval = setInterval( async () => {
+      console.log('hola');
+      
       await this.videoPlayService.getLandMark(this.videoElement);
     }, 3000);
   }
 
 
   public loadedMetaData(): void {
-    console.log('hola');
     this.videoElement.nativeElement.play();
   }
 
