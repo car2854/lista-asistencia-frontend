@@ -5,6 +5,7 @@ import { Estudiante } from '../../models/estudiante.model';
 import { EstudianteService } from '../../services/estudiante.service';
 import { Examen } from '../../models/examen.model';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-video-player',
@@ -35,6 +36,9 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   private countFaceAcept: number = 0;
   private cantFaceAcept: number = 3;
 
+  private subscription1: Subscription = new Subscription;
+  private subscription2: Subscription = new Subscription;
+
   public errorDetection:boolean = false;
 
   constructor(
@@ -46,33 +50,44 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     private router: Router
   ) { }
   
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.estudiante = this.estudianteService.estudiante;
     this.listenerEvent();
+    console.log(this.subscription1);
+    console.log(this.subscription2);
+
+    this.modelsReady = true;
   }
   
   ngOnDestroy(): void {
-    this.listEvents.forEach(event => event.unsubscribe());
-    // this.videoElement.nativeElement.pause();
+
+    this.subscription1.unsubscribe();
+    this.subscription2.unsubscribe();
 
     clearInterval(this.interval);
   }
 
+  // Aqui esta el error
   public listenerEvent = () => {
-    const observer1$ = this.faceApiService.cbModels.subscribe(res => {
+
+    this.subscription1 = this.faceApiService.cbModels.subscribe(res => {
       // TODO: Los modelos estan listo
+      
       if (!this.imagenesCargadas){
         this.videoPlayService.cargarImagenes();
         this.imagenesCargadas = true;
       }
 
-      this.modelsReady = true;
       this.checkFace();
+    }, (err) => {
+      console.log(err);
+      
     })
-
-    const observer2$ = this.videoPlayService.cbAi
+    
+    this.subscription2 = this.videoPlayService.cbAi
       .subscribe( ({results1, results2, results3, resizedDetections, displaySize, results}) => {
 
+      
         this.validarRegistro(results);
 
         resizedDetections = resizedDetections[0] || null;
@@ -83,7 +98,6 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.listEvents = [observer1$, observer2$];
   }
 
   public validarRegistro(result:any){
@@ -126,8 +140,6 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
   public checkFace = () => {
     this.interval = setInterval( async () => {
-      console.log('hola');
-      
       await this.videoPlayService.getLandMark(this.videoElement);
     }, 3000);
   }
