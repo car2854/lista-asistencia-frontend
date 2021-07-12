@@ -1,5 +1,5 @@
 video{
-  position: absolute;
+  /* position: absolute; */
   margin-left: auto;
   margin-right: auto;
   left: 0;
@@ -18,4 +18,11 @@ video{
 
 .error p{
   margin-top: 5px;
+}
+
+#canvas{
+  display: none;
+  width: 640px;
+  height: 480px;
+  border: 1px solid black;
 }

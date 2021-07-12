@@ -29,14 +29,13 @@ export class VerExamenComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     // localStorage.setItem('recargar','true');
-    window.location.reload();
+    // window.location.reload();
   }
 
   ngOnInit(): void {
     
     this.activatedRouter.params.subscribe(({id}) => this.examen = id);
     this.checkMediaSource();
-    console.log(this.examen);
     
   }
 
@@ -79,7 +78,8 @@ export class VerExamenComponent implements OnInit, OnDestroy {
         audio: false,
         video: true
       }).then(stream => {
-        this.currentStream = stream;        
+        this.currentStream = stream;   
+        this.loading = false;     
       }).catch(() => {
         console.log('**** ERROR NOT PERMISSIONS *****');
       });

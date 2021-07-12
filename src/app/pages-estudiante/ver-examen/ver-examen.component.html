@@ -1,9 +1,16 @@
-<div class="container text-center">
-  <p>Por favor, mire a la camara para el reconocimiento</p>
-  <div class="cam" #cam>
-    <app-video-player 
-      [stream]="currentStream"
-      [examen]="examen"
-    ></app-video-player>     
+<ng-container *ngIf="loading; else elseTemplate">
+  <app-loading></app-loading>
+</ng-container>
+<ng-template #elseTemplate>
+  <div class="container text-center">
+    <p>Por favor, mire a la camara para el reconocimiento</p>
+    <div class="cam" #cam>
+      <app-video-player 
+        [stream]="currentStream"
+        [examen]="examen"
+      ></app-video-player>     
+    </div>
   </div>
-</div>
+</ng-template>
+
+

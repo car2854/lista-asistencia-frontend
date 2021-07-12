@@ -33,6 +33,7 @@ export class VideoPlayService {
     const displaySize = {width:videoWidth, height:videoHeight}
     
     const detectionsFaces = await this.globalFace.detectAllFaces(videoElement.nativeElement, new this.globalFace.TinyFaceDetectorOptions())
+    // const detectionsFaces = await this.globalFace.detectSingleFace(videoElement.nativeElement, new this.globalFace.TinyFaceDetectorOptions())
       .withFaceLandmarks()
       .withFaceDescriptors();
 

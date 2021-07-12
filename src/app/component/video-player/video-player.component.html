@@ -2,10 +2,9 @@
   <p>Por favor, mire la camara</p>
 </div>
 
-<!-- <div>{{modelsReady}}</div> -->
-
 <div *ngIf="modelsReady">
   <video 
+    id="video"
     #videoElement 
     (loadedmetadata)="loadedMetaData()"
     (play)="listenerPlay()"
@@ -14,6 +13,11 @@
   ></video>
 </div>
 
+<canvas id="canvas">
+
+</canvas>
+
+<img src="" id="frame" alt="" style="width: 680px; height: 320px;">
 
 <!-- {{estudiante.foto1}}
 {{estudiante.foto2}}
