@@ -50,9 +50,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
     this.subcripcion = this.wsReconocimiento.getVideo()
       .subscribe((resp :any) => {
-        var img = <HTMLImageElement> document.getElementById("frame");	
-        img.src = resp;
-        
+        console.log(resp);
       })
 
   }
@@ -68,47 +66,42 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     
     this.interval = setInterval( async() => {
 
-      let canvas = <HTMLCanvasElement>document.getElementById('canvas');
+    
+      const imageByteface = this.convertirFormato(this.videoElement.nativeElement);      
 
-      if (canvas){
-        canvas.width = 640;
-        canvas.height = 480;
-        canvas.getContext('2d')?.drawImage(this.videoElement.nativeElement, 0, 0, 640, 480);
-      }
-
-      let img = <HTMLImageElement> document.getElementById("frame");	
-      img.src = canvas.toDataURL();
+      this.wsReconocimiento.emitVideo(imageByteface, this.estudiante.foto1, this.estudiante.foto2, this.estudiante.foto3);
+      // console.log('hola');
       
-
-
-      let foto1 = <HTMLImageElement> document.getElementById("foto1");	
-      let foto2 = <HTMLImageElement> document.getElementById("foto2");	
-      let foto3 = <HTMLImageElement> document.getElementById("foto3");	
-
-      console.log(foto1.src);
-      
-      
-
-
-      const imageByteface = this.convertirFormato(img);
-      // const imageByteFoto1 = this.convertirFormato(foto1);
-      // const imageByteFoto2 = this.convertirFormato(foto2);
-      // const imageByteFoto3 = this.convertirFormato(foto3);
-
-
-
-
-      
-
-      // this.wsReconocimiento.emitVideo(imageByteFoto1, this.estudiante.foto1, this.estudiante.foto2, this.estudiante.foto3);
-
       
 
     }, 5000);
   }
 
 
-  public convertirFormato(img:any){
+  
+  public convertImg(foto1:any){
+    
+ 
+      
+    
+    
+  }
+
+  public convertirFormato(videoElement:any){
+
+    let canvas = <HTMLCanvasElement>document.createElement('canvas');
+
+    if (canvas){
+      canvas.width = 640;
+      canvas.height = 480;
+      canvas.getContext('2d')?.drawImage(videoElement, 0, 0, 640, 480);
+    }
+
+    let img = <HTMLImageElement> document.getElementById("frame");	
+    img.src = canvas.toDataURL();
+
+
+
 
     let jpg = true;
     let image = null;
