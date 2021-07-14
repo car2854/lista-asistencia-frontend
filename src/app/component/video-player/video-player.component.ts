@@ -88,7 +88,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
       // console.log(imageByteface);
 
-      this.wsReconocimiento.emitVideo(imageByteface, this.estudiante.foto1, this.estudiante.foto2, this.estudiante.foto3);
+      this.wsReconocimiento.emitVideo(imageByteface, this.estudiante._id, this.estudiante.foto1, this.estudiante.foto2, this.estudiante.foto3);
       
 
     }, 1000);

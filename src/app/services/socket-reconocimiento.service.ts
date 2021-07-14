@@ -17,7 +17,7 @@ export class SocketReconocimientoService {
     this.estudiante = this.estudianteService.estudiante
   }
 
-  public emitVideo(data:any, img1: string, img2: string, img3: string){
+  public emitVideo(data:any, id: string, img1: string, img2: string, img3: string){
 
     // console.log('hola');
     
@@ -25,6 +25,7 @@ export class SocketReconocimientoService {
     
     const payload = {
       'video': data,
+      id,
       img1,
       img2,
       img3
