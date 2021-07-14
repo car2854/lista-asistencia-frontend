@@ -33,6 +33,10 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
 
   private subcripcion!: Subscription;
+
+  private esUsuario: Boolean = false;
+  private limitCaptura = 25;
+  private initCaptura = 0;
  
   constructor(
     private renderer2: Renderer2,
@@ -50,7 +54,12 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
     this.subcripcion = this.wsReconocimiento.getVideo()
       .subscribe((resp :any) => {
+        
+        
         console.log(resp);
+        this.esUsuario = true;
+        
+
       })
 
   }
@@ -66,18 +75,24 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     
     this.interval = setInterval( async() => {
 
-    
+
+      if (this.initCaptura >= this.limitCaptura){
+        console.log('No es el Usuario');
+      }
+
+      if (!this.esUsuario){
+        this.initCaptura++;
+      }
+      
       const imageByteface = this.convertirFormato(this.videoElement.nativeElement);      
 
+      // console.log(imageByteface);
+
       this.wsReconocimiento.emitVideo(imageByteface, this.estudiante.foto1, this.estudiante.foto2, this.estudiante.foto3);
-      // console.log('hola');
-      
       
 
-    }, 5000);
+    }, 1000);
   }
-
-
   
   public convertImg(foto1:any){
     

@@ -23,7 +23,7 @@ import { NoAcceptComponent } from './status-examen-cam/no-accept.component';
   imports: [
     CommonModule,
     PageEstudianteRoutingModule,
-    ComponentModule
+    ComponentModule,
   ]
 })
 export class PageEstudianteModule { }
