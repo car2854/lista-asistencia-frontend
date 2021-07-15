@@ -5,6 +5,7 @@ import { Subscription, Observable } from 'rxjs';
 import { SocketReconocimientoService } from '../../services/socket-reconocimiento.service';
 
 import { UploadService } from '../../services/upload.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-video-player',
@@ -34,15 +35,13 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
   private subcripcion!: Subscription;
 
-  private esUsuario: Boolean = false;
-  private limitCaptura = 25;
-  private initCaptura = 0;
+  private cantidadRespuestas = 0;
  
   constructor(
     private renderer2: Renderer2,
     private estudianteService: EstudianteService,
     private uploadService: UploadService,
-    
+    private router: Router,
     public wsReconocimiento: SocketReconocimientoService
     ) { }
     
@@ -55,9 +54,19 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     this.subcripcion = this.wsReconocimiento.getVideo()
       .subscribe((resp :any) => {
         
-        
         console.log(resp);
-        this.esUsuario = true;
+        if (this.cantidadRespuestas >= 5){
+          console.log('No es el usuario');
+          this.router.navigateByUrl('main-estudiante/examen/no-accept');
+        }
+        
+        if (resp == 0){
+          this.cantidadRespuestas++;
+        }else{
+          console.log('Es el Usuario');
+          localStorage.setItem('_id', this.examen);
+          this.router.navigateByUrl('main-estudiante/examen/accept');
+        }
         
 
       })
@@ -74,21 +83,12 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   public checkFace(){
     
     this.interval = setInterval( async() => {
-
-
-      if (this.initCaptura >= this.limitCaptura){
-        console.log('No es el Usuario');
-      }
-
-      if (!this.esUsuario){
-        this.initCaptura++;
-      }
       
       const imageByteface = this.convertirFormato(this.videoElement.nativeElement);      
 
       // console.log(imageByteface);
 
-      this.wsReconocimiento.emitVideo(imageByteface, this.estudiante._id, this.estudiante.foto1, this.estudiante.foto2, this.estudiante.foto3);
+      this.wsReconocimiento.emitVideo(imageByteface, this.estudiante.bucket1, this.estudiante.bucket2, this.estudiante.bucket3);
       
 
     }, 1000);
@@ -157,6 +157,11 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   }
 
   public listenerPlay(){
+
+    console.log('hola');
+
+    // Aqui tengo que trabajar
+    
     // const {globalFace} = this.faceApiService;
     // this.overCanvas = globalFace.createCanvasFromMedia(this.videoElement.nativeElement);
     // this.renderer2.setProperty(this.overCanvas, 'id', 'new-canvas-over');

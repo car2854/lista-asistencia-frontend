@@ -67,6 +67,7 @@ export class CrearAlumnoComponent implements OnInit {
         
         this.estudianteService.guardarFotos(this.imagenSubir1, this.imagenSubir2, this.imagenSubir3, resp.estudiante._id)
           .then(resp => {
+            this.sendForm = false;
             Swal.fire('Guardados','Estudiante creado', 'success');
             this.closeModal.nativeElement.click();
           }).catch(err => {

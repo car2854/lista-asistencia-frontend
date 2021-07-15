@@ -151,7 +151,17 @@
                 <div class="row">
                   <div class="update ml-auto mr-auto">
 
-                    <input type="submit" value="Crear estudiante" class="btn btn-dark btn-round">
+                    <ng-container *ngIf="!sendForm; else elseTemplate">
+                      <div class="form-group">
+                        <input type="submit" value="Crear estudiante" class="btn btn-dark btn-round">
+                      </div>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                      <div class="form-group">
+                        <input type="submit" value="Crear estudiante" class="btn btn-dark btn-round" disabled>
+                      </div>
+                
+                    </ng-template>
 
                     <ng-template #loading>
                       <div class="text-center">
